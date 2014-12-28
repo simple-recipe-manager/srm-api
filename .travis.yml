@@ -17,7 +17,7 @@ after_success:
 - sudo echo "[global]" >> .elasticbeanstalk/config
 - sudo echo "AwsCredentialFile=/Users/travis/.elasticbeanstalk/aws_credential_file"
   >> .elasticbeanstalk/config
-- sudo echo "ApplicationName=cukebot" >> .elasticbeanstalk/config
+- sudo echo "ApplicationName=Simple Recipe Manager" >> .elasticbeanstalk/config
 - sudo echo "DevToolsEndpoint=git.elasticbeanstalk.us-east-1.amazonaws.com" >> .elasticbeanstalk/config
 - sudo echo "EnvironmentName=srm-api" >> .elasticbeanstalk/config
 - sudo echo "Region=us-east-1" >> .elasticbeanstalk/config
