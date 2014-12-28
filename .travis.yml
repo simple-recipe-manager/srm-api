@@ -15,14 +15,10 @@ after_success:
 - AWS-ElasticBeanstalk-CLI-2.6.2/AWSDevTools/Linux/AWSDevTools-RepositorySetup.sh
 - mkdir .elasticbeanstalk
 - sudo echo "[global]" >> .elasticbeanstalk/config
-- sudo echo "AwsCredentialFile=/Users/travis/.elasticbeanstalk/aws_credential_file"
-  >> .elasticbeanstalk/config
 - sudo echo "ApplicationName=Simple Recipe Manager" >> .elasticbeanstalk/config
 - sudo echo "DevToolsEndpoint=git.elasticbeanstalk.us-east-1.amazonaws.com" >> .elasticbeanstalk/config
 - sudo echo "EnvironmentName=srm-api" >> .elasticbeanstalk/config
 - sudo echo "Region=us-east-1" >> .elasticbeanstalk/config
-- cat .elasticbeanstalk/config
-- cat ~/.elasticbeanstalk/aws_credential_file
 - echo "us-east-1" | git aws.config
-- echo -e "$AWS_ACCESS_KEY_ID\n$AWS_SECRET_ACCESS_KEY\n1\n\n\n1\n53\n2\nN\n1\n" | AWS-ElasticBeanstalk-CLI-2.6.2/eb/linux/python2.7/eb init
+- echo -e "$ACCESS_KEY_ID\n$SECRET_KEY\n1\n\n\n1\n53\n2\nN\n1\n" | AWS-ElasticBeanstalk-CLI-2.6.2/eb/linux/python2.7/eb init
 - git aws.push
