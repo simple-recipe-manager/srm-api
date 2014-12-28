@@ -5,4 +5,4 @@ ADD https://s3.amazonaws.com/srmbuildartifact/target/SRM-API.jar /app/server.jar
 
 CMD ["java", "-jar", "/app/server.jar", "server" ]
 
-EXPOSE 8080
+EXPOSE 8080 8081
