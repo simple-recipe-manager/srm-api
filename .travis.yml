@@ -1,8 +1,28 @@
 language: java
 deploy:
-  - provider: s3
-    access_key_id: "AKIAJSNXIGB2GRZD2C4A"
-    secret_access_key:
-      secure: "bA1f/XLqrXEVqZ/sQndzOSJKljSP+n8yqe/MRfHUjgUsuV4P15vHbGlcsGAaztwoeoBOj9ULef7oZR6CNbnKxL0o7NripYKopq1ypnBgywvussueA/9RHxInVTK8xBvv3q6W6SHtjTe/vbcAkvIakj1Qa6bJaWmez8Rl12GNepg="
-    bucket: "srmbuildartifact"
-    skip_cleanup: true
+- provider: s3
+  access_key_id: $ACCESS_KEY_ID
+  secret_access_key: $SECRET_KEY
+  bucket: srmbuildartifact
+  skip_cleanup: true
+env:
+  global:
+  - secure: g++6SghJ4mvQm9kubwAuI3dBQe4Ps3IKfan9cbmQrdYjBXjaf0AS8JiFj/oIPoSqpCIik5WuXbe2tTWNSBsEwcXexw2u7UjjnDmAg7prTonwT8O2HKfx00T4qeUHU1Y+UidQemOu/y2faDRPwdNihD63YkxIftP49MA8E07q3nU=
+  - secure: j61jGlvk6CQetn9nNLaa5Y3BgvQH/jArZ2O4WLp68qqA1YWPKz89gFyysFUixj0UrKn2DFh6j7sdbwU6h0OUoQ2KuMbWXgbn/k3B2y8Rgy3WkLbrDm5aD6sJKWoWqpcGrEkjGe1oZXRnksZEW/YmGpRv1Af6ZBDABbSA1+twiJw=
+after_success:
+- wget "https://s3.amazonaws.com/elasticbeanstalk/cli/AWS-ElasticBeanstalk-CLI-2.6.2.zip"
+- unzip "AWS-ElasticBeanstalk-CLI-2.6.2.zip"
+- AWS-ElasticBeanstalk-CLI-2.6.2/AWSDevTools/Linux/AWSDevTools-RepositorySetup.sh
+- mkdir .elasticbeanstalk
+- sudo echo "[global]" >> .elasticbeanstalk/config
+- sudo echo "AwsCredentialFile=/Users/travis/.elasticbeanstalk/aws_credential_file"
+  >> .elasticbeanstalk/config
+- sudo echo "ApplicationName=cukebot" >> .elasticbeanstalk/config
+- sudo echo "DevToolsEndpoint=git.elasticbeanstalk.us-east-1.amazonaws.com" >> .elasticbeanstalk/config
+- sudo echo "EnvironmentName=srm-api" >> .elasticbeanstalk/config
+- sudo echo "Region=us-east-1" >> .elasticbeanstalk/config
+- cat .elasticbeanstalk/config
+- cat ~/.elasticbeanstalk/aws_credential_file
+- echo "us-east-1" | git aws.config
+- echo -e "$AWS_ACCESS_KEY_ID\n$AWS_SECRET_ACCESS_KEY\n1\n\n\n1\n53\n2\nN\n1\n" | AWS-ElasticBeanstalk-CLI-2.6.2/eb/linux/python2.7/eb init
+- git aws.push
