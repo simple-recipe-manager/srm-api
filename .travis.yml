@@ -19,7 +19,7 @@ after_deploy:
 - sudo echo "DevToolsEndpoint=git.elasticbeanstalk.us-east-1.amazonaws.com" >> .elasticbeanstalk/config
 - sudo echo "EnvironmentName=srm-api" >> .elasticbeanstalk/config
 - sudo echo "Region=us-east-1" >> .elasticbeanstalk/config
-- echo "us-east-1" | git aws.config
-- git add Dockerfile
+- echo "us-east-1\n$ACCESS_KEY_ID\n$SECRET_KEY" | git aws.config
+- git add simple-recipe-manager/srm-api/Dockerfile
 - git commit -m "Updates"
 - AWS-ElasticBeanstalk-CLI-2.6.2/eb/linux/python2.7/eb deploy
