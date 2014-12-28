@@ -29,6 +29,7 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 		environment.healthChecks().register("Connection", connHC);
 		
 		final HealthCheckResource hcR = new HealthCheckResource(environment.healthChecks());
+		environment.jersey().register(hcR);
 	}
 
 }
