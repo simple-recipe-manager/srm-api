@@ -1,15 +1,14 @@
 language: java
 deploy:
-  matrix:
   - provider: s3
-    access_key_id: AKIAJSNXIGB2GRZD2C4A
+    access_key_id: "AKIAJSNXIGB2GRZD2C4A"
     secret_access_key:
-      secure: iGy0AqfQ8cWz4fEi1SHipQA+vK9QCcUoIijyQxPepeOrghIj0JUwdonJTAU+RHOkZnYUPwH35z91dz5dqjHVVI6nVOtzWv0Ocl0B+aP5SOMxdTgBAp5jObqsjpVq6czqRNRlDFB9uZSjdT+sO5cxyXF/YAugdbUV5/6Qbj2U1lo=
-    bucket: srmbuildartifact
+      secure: "bA1f/XLqrXEVqZ/sQndzOSJKljSP+n8yqe/MRfHUjgUsuV4P15vHbGlcsGAaztwoeoBOj9ULef7oZR6CNbnKxL0o7NripYKopq1ypnBgywvussueA/9RHxInVTK8xBvv3q6W6SHtjTe/vbcAkvIakj1Qa6bJaWmez8Rl12GNepg="
+    bucket: "srmbuildartifact"
     skip_cleanup: true
   - provider: opsworks
-    access-key-id: AKIAJSNXIGB2GRZD2C4A
-    secret_access_key:
-      secure: iGy0AqfQ8cWz4fEi1SHipQA+vK9QCcUoIijyQxPepeOrghIj0JUwdonJTAU+RHOkZnYUPwH35z91dz5dqjHVVI6nVOtzWv0Ocl0B+aP5SOMxdTgBAp5jObqsjpVq6czqRNRlDFB9uZSjdT+sO5cxyXF/YAugdbUV5/6Qbj2U1lo=
-    app-id: ad9c3a68-61f3-4a88-985d-2c207749de2d
+    access-key-id: "AKIAJSNXIGB2GRZD2C4A"
+    app-id: "ad9c3a68-61f3-4a88-985d-2c207749de2d"
     skip_cleanup: true
+    secret_access_key:
+      secure: "bA1f/XLqrXEVqZ/sQndzOSJKljSP+n8yqe/MRfHUjgUsuV4P15vHbGlcsGAaztwoeoBOj9ULef7oZR6CNbnKxL0o7NripYKopq1ypnBgywvussueA/9RHxInVTK8xBvv3q6W6SHtjTe/vbcAkvIakj1Qa6bJaWmez8Rl12GNepg="
