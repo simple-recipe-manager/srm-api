@@ -6,9 +6,3 @@ deploy:
       secure: "bA1f/XLqrXEVqZ/sQndzOSJKljSP+n8yqe/MRfHUjgUsuV4P15vHbGlcsGAaztwoeoBOj9ULef7oZR6CNbnKxL0o7NripYKopq1ypnBgywvussueA/9RHxInVTK8xBvv3q6W6SHtjTe/vbcAkvIakj1Qa6bJaWmez8Rl12GNepg="
     bucket: "srmbuildartifact"
     skip_cleanup: true
-  - provider: opsworks
-    access-key-id: "AKIAJSNXIGB2GRZD2C4A"
-    app-id: "ad9c3a68-61f3-4a88-985d-2c207749de2d"
-    skip_cleanup: true
-    secret_access_key:
-      secure: "bA1f/XLqrXEVqZ/sQndzOSJKljSP+n8yqe/MRfHUjgUsuV4P15vHbGlcsGAaztwoeoBOj9ULef7oZR6CNbnKxL0o7NripYKopq1ypnBgywvussueA/9RHxInVTK8xBvv3q6W6SHtjTe/vbcAkvIakj1Qa6bJaWmez8Rl12GNepg="
