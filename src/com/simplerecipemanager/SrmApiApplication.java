@@ -6,6 +6,7 @@ import io.dropwizard.setup.Environment;
 
 import com.simplerecipemanager.configuration.SrmApiConfiguration;
 import com.simplerecipemanager.health.ConnectionHealthCheck;
+import com.simplerecipemanager.resources.HealthCheckResource;
 import com.simplerecipemanager.resources.RecipeResource;
 
 public class SrmApiApplication extends Application<SrmApiConfiguration> {
@@ -26,6 +27,8 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 
 		ConnectionHealthCheck connHC = new ConnectionHealthCheck();
 		environment.healthChecks().register("Connection", connHC);
+		
+		final HealthCheckResource hcR = new HealthCheckResource(environment.healthChecks());
 	}
 
 }
