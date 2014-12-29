@@ -7,7 +7,7 @@ import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
-public class DyanmoDBMapperFactory {
+public class DynamoDBMapperFactory {
 
 	public DynamoDBMapper build(Environment environment) {
 

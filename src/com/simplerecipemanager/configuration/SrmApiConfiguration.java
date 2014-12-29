@@ -11,15 +11,15 @@ public class SrmApiConfiguration extends Configuration {
 
 	@Valid
 	@NotNull
-	private DyanmoDBMapperFactory mapperFactory = new DyanmoDBMapperFactory();
+	private DynamoDBMapperFactory mapperFactory = new DynamoDBMapperFactory();
 
 	@JsonProperty("mapperFactory")
-	public DyanmoDBMapperFactory getMapperFactory() {
+	public DynamoDBMapperFactory getMapperFactory() {
 		return mapperFactory;
 	}
 
 	@JsonProperty("mapperFactory")
-	public void setMapperFactory(DyanmoDBMapperFactory mapperFactory) {
+	public void setMapperFactory(DynamoDBMapperFactory mapperFactory) {
 		this.mapperFactory = mapperFactory;
 	}
 

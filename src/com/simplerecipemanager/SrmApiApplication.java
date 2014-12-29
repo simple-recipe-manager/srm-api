@@ -24,12 +24,13 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 	@Override
 	public void run(SrmApiConfiguration configuration, Environment environment)
 			throws Exception {
-		
+
 		final RecipesResource reipceResource = new RecipesResource(
 				configuration.getMapperFactory().build(environment));
 		environment.jersey().register(reipceResource);
 
-		ConnectionHealthCheck connHC = new ConnectionHealthCheck();
+		final ConnectionHealthCheck connHC = new ConnectionHealthCheck(
+				configuration.getMapperFactory().build(environment));
 		environment.healthChecks().register("Connection", connHC);
 
 		final HealthCheckResource hcR = new HealthCheckResource(
