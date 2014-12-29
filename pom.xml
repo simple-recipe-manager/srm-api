@@ -122,6 +122,11 @@
 			<version>${dropwizard.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>1.9.13</version>
+		</dependency>
 	</dependencies>
 	<packaging>jar</packaging>
 </project>
