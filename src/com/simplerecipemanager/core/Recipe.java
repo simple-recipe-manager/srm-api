@@ -8,6 +8,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.simplerecipemanager.db.UUIDMarshaller;
 
 @DynamoDBTable(tableName = Recipe.TABLE_NAME)
@@ -91,6 +92,7 @@ public class Recipe {
 		this.oven_time = oven_time;
 	}
 
+	@JsonIgnore
 	public Map<Yield, Ingredient> getIngredients() {
 		return ingredients;
 	}
@@ -132,6 +134,7 @@ public class Recipe {
 	}
 
 	@DynamoDBIgnore
+	@JsonIgnore
 	public Map<String, Object> getXFields() {
 		return xFields;
 	}
