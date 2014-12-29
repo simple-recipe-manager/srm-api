@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.simplerecipemanager.db.UUIDMarshaller;
@@ -130,11 +131,12 @@ public class Recipe {
 		this.yields = yields;
 	}
 
-	public Map<String, Object> getxFields() {
+	@DynamoDBIgnore
+	public Map<String, Object> getXFields() {
 		return xFields;
 	}
 
-	public void setxFields(Map<String, Object> xFields) {
+	public void setXFields(Map<String, Object> xFields) {
 		this.xFields = xFields;
 	}
 }
