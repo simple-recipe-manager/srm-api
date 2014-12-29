@@ -51,7 +51,8 @@ public class RecipesResource {
 	}
 
 	private Recipe getRecipeForId(String id, String format) {
-		return this.mapper.load(Recipe.class, id);
+		UUID toLoad = UUID.fromString(id);
+		return this.mapper.load(Recipe.class, toLoad);
 	}
 
 	private Recipe validateAndSaveRecipe(Recipe toSave, UUID idToSave) {
