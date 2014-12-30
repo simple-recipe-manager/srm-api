@@ -5,15 +5,19 @@ import io.dropwizard.setup.Environment;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSCredentialsProviderChain;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
 public class DynamoDBMapperFactory {
 
-	private AWSCredentialsProvider stringProvider;
+	private final AWSCredentialsProvider stringProvider;
+	private final AWSCredentials stringCreds;
 
 	public DynamoDBMapperFactory(String accessKey, String secretKey) {
+
+		this.stringCreds = new BasicAWSCredentials(accessKey, secretKey);
 		this.stringProvider = new AWSCredentialsProvider() {
 
 			@Override
@@ -22,18 +26,7 @@ public class DynamoDBMapperFactory {
 
 			@Override
 			public AWSCredentials getCredentials() {
-				return new AWSCredentials() {
-
-					@Override
-					public String getAWSSecretKey() {
-						return secretKey;
-					}
-
-					@Override
-					public String getAWSAccessKeyId() {
-						return accessKey;
-					}
-				};
+				return DynamoDBMapperFactory.this.stringCreds;
 			}
 		};
 	}
