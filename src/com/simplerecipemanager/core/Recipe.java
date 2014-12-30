@@ -97,6 +97,7 @@ public class Recipe {
 		return ingredients;
 	}
 
+	@JsonIgnore
 	public void setIngredients(Map<Yield, Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
@@ -113,6 +114,7 @@ public class Recipe {
 		return source_book;
 	}
 
+	@JsonIgnore
 	public void setSource_book(SourceBook source_book) {
 		this.source_book = source_book;
 	}
@@ -125,6 +127,7 @@ public class Recipe {
 		this.steps = steps;
 	}
 
+	@JsonIgnore
 	public List<Yield> getYields() {
 		return yields;
 	}
