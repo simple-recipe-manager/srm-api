@@ -92,10 +92,12 @@ public class Recipe {
 		this.oven_time = oven_time;
 	}
 
+	@JsonIgnore
 	public Map<Yield, Ingredient> getIngredients() {
 		return ingredients;
 	}
 
+	@JsonIgnore
 	public void setIngredients(Map<Yield, Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
