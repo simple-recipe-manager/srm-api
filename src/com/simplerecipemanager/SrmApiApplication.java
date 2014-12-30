@@ -4,9 +4,6 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
-import com.amazonaws.auth.InstanceProfileCredentialsProvider;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBAsyncClient;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.simplerecipemanager.configuration.SrmApiConfiguration;
 import com.simplerecipemanager.health.ConnectionHealthCheck;
 import com.simplerecipemanager.resources.HealthCheckResource;

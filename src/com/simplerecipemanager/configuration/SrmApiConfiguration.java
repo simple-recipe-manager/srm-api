@@ -2,25 +2,44 @@ package com.simplerecipemanager.configuration;
 
 import io.dropwizard.Configuration;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SrmApiConfiguration extends Configuration {
 
-	@Valid
-	@NotNull
-	private DynamoDBMapperFactory mapperFactory = new DynamoDBMapperFactory();
+	private DynamoDBMapperFactory mapperFactory;
 
-	@JsonProperty("mapperFactory")
+	private String accessKey;
+
+	private String secretKey;
+
 	public DynamoDBMapperFactory getMapperFactory() {
-		return mapperFactory;
+		synchronized (this) {
+			if (mapperFactory == null) {
+				mapperFactory = new DynamoDBMapperFactory(this.getAccessKey(),
+						this.getSecretKey());
+			}
+		}
+		return this.mapperFactory;
 	}
 
-	@JsonProperty("mapperFactory")
-	public void setMapperFactory(DynamoDBMapperFactory mapperFactory) {
-		this.mapperFactory = mapperFactory;
+	@JsonProperty
+	public String getAccessKey() {
+		return accessKey;
+	}
+
+	@JsonProperty
+	public void setAccessKey(String accessKey) {
+		this.accessKey = accessKey;
+	}
+
+	@JsonProperty
+	public String getSecretKey() {
+		return secretKey;
+	}
+
+	@JsonProperty
+	public void setSecretKey(String secretKey) {
+		this.secretKey = secretKey;
 	}
 
 }

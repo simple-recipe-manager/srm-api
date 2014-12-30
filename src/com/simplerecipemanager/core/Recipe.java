@@ -5,11 +5,11 @@ import java.util.Map;
 import java.util.UUID;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.simplerecipemanager.db.UUIDMarshaller;
+import com.simplerecipemanager.db.XFieldMarshaller;
 
 @DynamoDBTable(tableName = Recipe.TABLE_NAME)
 public class Recipe {
@@ -92,12 +92,10 @@ public class Recipe {
 		this.oven_time = oven_time;
 	}
 
-	@JsonIgnore
 	public Map<Yield, Ingredient> getIngredients() {
 		return ingredients;
 	}
 
-	@JsonIgnore
 	public void setIngredients(Map<Yield, Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
@@ -114,7 +112,6 @@ public class Recipe {
 		return source_book;
 	}
 
-	@JsonIgnore
 	public void setSource_book(SourceBook source_book) {
 		this.source_book = source_book;
 	}
@@ -127,7 +124,6 @@ public class Recipe {
 		this.steps = steps;
 	}
 
-	@JsonIgnore
 	public List<Yield> getYields() {
 		return yields;
 	}
@@ -136,8 +132,9 @@ public class Recipe {
 		this.yields = yields;
 	}
 
-	@DynamoDBIgnore
+	
 	@JsonIgnore
+	@DynamoDBMarshalling(marshallerClass=XFieldMarshaller.class)
 	public Map<String, Object> getXFields() {
 		return xFields;
 	}
