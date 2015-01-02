@@ -2,10 +2,15 @@ package com.simplerecipemanager.core;
 
 import java.util.UUID;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.simplerecipemanager.db.UUIDMarshaller;
 
+@DynamoDBTable(tableName = Step.TABLE_NAME)
 public class Step {
+
+	public static final String TABLE_NAME = "Steps";
 
 	private UUID id;
 	private String stepDetails;
@@ -14,6 +19,7 @@ public class Step {
 	private int order;
 
 	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
+	@DynamoDBHashKey
 	public UUID getId() {
 		return id;
 	}

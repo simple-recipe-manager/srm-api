@@ -3,9 +3,9 @@ package com.simplerecipemanager.core;
 import java.util.List;
 import java.util.UUID;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.simplerecipemanager.db.IngredientMarshaller;
 import com.simplerecipemanager.db.UUIDMarshaller;
 
 @DynamoDBTable(tableName = Ingredient.TABLE_NAME)
@@ -21,6 +21,7 @@ public class Ingredient {
 	private String usda_num;
 
 	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
+	@DynamoDBHashKey
 	public UUID getIngredientId() {
 		return ingredientId;
 	}
@@ -37,7 +38,6 @@ public class Ingredient {
 		this.name = name;
 	}
 
-	@DynamoDBMarshalling(marshallerClass = IngredientMarshaller.class)
 	public List<Ingredient> getSubstitutions() {
 		return substitutions;
 	}
