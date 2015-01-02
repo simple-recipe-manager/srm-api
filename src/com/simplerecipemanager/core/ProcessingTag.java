@@ -1,5 +1,5 @@
 package com.simplerecipemanager.core;
 
-public class RecipeNotes {
+public class ProcessingTag {
 
 }

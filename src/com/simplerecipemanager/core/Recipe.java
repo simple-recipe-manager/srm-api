@@ -1,15 +1,17 @@
 package com.simplerecipemanager.core;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simplerecipemanager.db.UUIDMarshaller;
-import com.simplerecipemanager.db.XFieldMarshaller;
 
 @DynamoDBTable(tableName = Recipe.TABLE_NAME)
 public class Recipe {
@@ -19,16 +21,16 @@ public class Recipe {
 	private UUID recipe_uuid;
 	private String recipe_name;
 	private OvenFan oven_fan; // Off, Low, High
-	private long oven_temp;
-	private long amount; // Number of degrees
-	private TemperatureUnit unit; // C or F
+	private OvenTemp oven_temp;
 	private long oven_time;
-	private Map<Yield, Ingredient> ingredients;
-	private String note;
+	private Map<Yield, IngredientAndAmount> ingredients;
+	private Note notes;
 	private SourceBook source_book;
-	private Steps steps;
-	private List<Yield> yields;
-	private Map<String, Object> xFields;
+	private List<Author> source_authors;
+	private URL source_url;
+	private List<Step> steps;
+	private List<URL> imageURLs;
+	private URL defaultImageURL;
 
 	public Recipe() {
 
@@ -36,6 +38,7 @@ public class Recipe {
 
 	@DynamoDBHashKey
 	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
+	@JsonProperty(required = true)
 	public UUID getRecipe_uuid() {
 		return recipe_uuid;
 	}
@@ -60,30 +63,6 @@ public class Recipe {
 		this.oven_fan = oven_fan;
 	}
 
-	public long getOven_temp() {
-		return oven_temp;
-	}
-
-	public void setOven_temp(long oven_temp) {
-		this.oven_temp = oven_temp;
-	}
-
-	public long getAmount() {
-		return amount;
-	}
-
-	public void setAmount(long amount) {
-		this.amount = amount;
-	}
-
-	public TemperatureUnit getUnit() {
-		return unit;
-	}
-
-	public void setUnit(TemperatureUnit unit) {
-		this.unit = unit;
-	}
-
 	public long getOven_time() {
 		return oven_time;
 	}
@@ -93,21 +72,13 @@ public class Recipe {
 	}
 
 	@JsonIgnore
-	public Map<Yield, Ingredient> getIngredients() {
+	public Map<Yield, IngredientAndAmount> getIngredients() {
 		return ingredients;
 	}
 
 	@JsonIgnore
-	public void setIngredients(Map<Yield, Ingredient> ingredients) {
+	public void setIngredients(Map<Yield, IngredientAndAmount> ingredients) {
 		this.ingredients = ingredients;
-	}
-
-	public String getNote() {
-		return note;
-	}
-
-	public void setNote(String note) {
-		this.note = note;
 	}
 
 	public SourceBook getSource_book() {
@@ -118,30 +89,63 @@ public class Recipe {
 		this.source_book = source_book;
 	}
 
-	public Steps getSteps() {
-		return steps;
+	public Set<Yield> getYields() {
+		return this.ingredients.keySet();
 	}
 
-	public void setSteps(Steps steps) {
+	public List<URL> getImageURLs() {
+		return imageURLs;
+	}
+
+	public void setImageURLs(List<URL> imageURLs) {
+		this.imageURLs = imageURLs;
+	}
+
+	public URL getDefaultImageURL() {
+		return defaultImageURL;
+	}
+
+	public void setDefaultImageURL(URL defaultImageURL) {
+		this.defaultImageURL = defaultImageURL;
+	}
+
+	public OvenTemp getOven_temp() {
+		return oven_temp;
+	}
+
+	public void setOven_temp(OvenTemp oven_temp) {
+		this.oven_temp = oven_temp;
+	}
+
+	public List<Author> getSource_authors() {
+		return source_authors;
+	}
+
+	public void setSource_authors(List<Author> source_authors) {
+		this.source_authors = source_authors;
+	}
+
+	public URL getSource_url() {
+		return source_url;
+	}
+
+	public void setSource_url(URL source_url) {
+		this.source_url = source_url;
+	}
+
+	public void setSteps(List<Step> steps) {
 		this.steps = steps;
 	}
 
-	public List<Yield> getYields() {
-		return yields;
+	public List<Step> getSteps() {
+		return steps;
 	}
 
-	public void setYields(List<Yield> yields) {
-		this.yields = yields;
+	public Note getNotes() {
+		return notes;
 	}
 
-	
-	@JsonIgnore
-	@DynamoDBMarshalling(marshallerClass=XFieldMarshaller.class)
-	public Map<String, Object> getXFields() {
-		return xFields;
-	}
-
-	public void setXFields(Map<String, Object> xFields) {
-		this.xFields = xFields;
+	public void setNotes(Note notes) {
+		this.notes = notes;
 	}
 }

@@ -1,22 +1,73 @@
 package com.simplerecipemanager.core;
 
+import java.util.List;
+import java.util.UUID;
+
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.simplerecipemanager.db.IngredientMarshaller;
+import com.simplerecipemanager.db.UUIDMarshaller;
+
+@DynamoDBTable(tableName = Ingredient.TABLE_NAME)
 public class Ingredient {
-	private String ingredient;
-	private Amount amount;
 
-	public String getIngredient() {
-		return ingredient;
+	public static final String TABLE_NAME = "Ingredients";
+
+	private UUID ingredientId;
+	private String name;
+	private List<Ingredient> substitutions;
+	private List<ProcessingTag> processingTags;
+	private Note notes;
+	private String usda_num;
+
+	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
+	public UUID getIngredientId() {
+		return ingredientId;
 	}
 
-	public void setIngredient(String ingredient) {
-		this.ingredient = ingredient;
+	public void setIngredientId(UUID ingredientId) {
+		this.ingredientId = ingredientId;
 	}
 
-	public Amount getAmount() {
-		return amount;
+	public String getName() {
+		return name;
 	}
 
-	public void setAmount(Amount amount) {
-		this.amount = amount;
+	public void setName(String name) {
+		this.name = name;
 	}
+
+	@DynamoDBMarshalling(marshallerClass = IngredientMarshaller.class)
+	public List<Ingredient> getSubstitutions() {
+		return substitutions;
+	}
+
+	public void setSubstitutions(List<Ingredient> substitutions) {
+		this.substitutions = substitutions;
+	}
+
+	public List<ProcessingTag> getProcessingTags() {
+		return processingTags;
+	}
+
+	public void setProcessingTags(List<ProcessingTag> processingTags) {
+		this.processingTags = processingTags;
+	}
+
+	public Note getNotes() {
+		return notes;
+	}
+
+	public void setNotes(Note notes) {
+		this.notes = notes;
+	}
+
+	public String getUsda_num() {
+		return usda_num;
+	}
+
+	public void setUsda_num(String usda_num) {
+		this.usda_num = usda_num;
+	}
+
 }

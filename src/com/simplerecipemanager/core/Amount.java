@@ -3,7 +3,7 @@ package com.simplerecipemanager.core;
 public class Amount {
 
 	private double value;
-	private Unit unit;
+	private UnitTag unit;
 
 	public double getValue() {
 		return value;
@@ -13,11 +13,11 @@ public class Amount {
 		this.value = value;
 	}
 
-	public Unit getUnit() {
+	public UnitTag getUnit() {
 		return unit;
 	}
 
-	public void setUnit(Unit unit) {
+	public void setUnit(UnitTag unit) {
 		this.unit = unit;
 	}
 }
