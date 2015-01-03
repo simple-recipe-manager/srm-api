@@ -7,10 +7,16 @@ import java.util.Set;
 import java.util.UUID;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.simplerecipemanager.db.OvenFanMarshaller;
+import com.simplerecipemanager.db.OvenTempMarshaller;
+import com.simplerecipemanager.db.RemoteTable;
+import com.simplerecipemanager.db.RemoteTableMarshaller;
+import com.simplerecipemanager.db.RemotedTableSetMarhsaller;
 import com.simplerecipemanager.db.UUIDMarshaller;
 
 @DynamoDBTable(tableName = Recipe.TABLE_NAME)
@@ -23,13 +29,13 @@ public class Recipe {
 	private OvenFan oven_fan; // Off, Low, High
 	private OvenTemp oven_temp;
 	private long oven_time;
-	private Map<Yield, IngredientAndAmount> ingredients;
+	private Map<Yield, List<IngredientAndAmount>> ingredients;
 	private Note notes;
 	private SourceBook source_book;
-	private List<Author> source_authors;
+	private Set<Author> source_authors;
 	private URL source_url;
-	private List<Step> steps;
-	private List<URL> imageURLs;
+	private Set<Step> steps;
+	private Set<URL> imageURLs;
 	private URL defaultImageURL;
 
 	public Recipe() {
@@ -55,6 +61,7 @@ public class Recipe {
 		this.recipe_name = recipe_name;
 	}
 
+	@DynamoDBMarshalling(marshallerClass = OvenFanMarshaller.class)
 	public OvenFan getOven_fan() {
 		return oven_fan;
 	}
@@ -71,16 +78,18 @@ public class Recipe {
 		this.oven_time = oven_time;
 	}
 
+	@DynamoDBIgnore
 	@JsonIgnore
-	public Map<Yield, IngredientAndAmount> getIngredients() {
+	public Map<Yield, List<IngredientAndAmount>> getIngredients() {
 		return ingredients;
 	}
 
-	@JsonIgnore
-	public void setIngredients(Map<Yield, IngredientAndAmount> ingredients) {
+	public void setIngredients(Map<Yield, List<IngredientAndAmount>> ingredients) {
 		this.ingredients = ingredients;
 	}
 
+	@RemoteTable
+	@DynamoDBMarshalling(marshallerClass = RemoteTableMarshaller.class)
 	public SourceBook getSource_book() {
 		return source_book;
 	}
@@ -89,15 +98,16 @@ public class Recipe {
 		this.source_book = source_book;
 	}
 
+	@DynamoDBIgnore
 	public Set<Yield> getYields() {
 		return this.ingredients.keySet();
 	}
 
-	public List<URL> getImageURLs() {
+	public Set<URL> getImageURLs() {
 		return imageURLs;
 	}
 
-	public void setImageURLs(List<URL> imageURLs) {
+	public void setImageURLs(Set<URL> imageURLs) {
 		this.imageURLs = imageURLs;
 	}
 
@@ -109,6 +119,7 @@ public class Recipe {
 		this.defaultImageURL = defaultImageURL;
 	}
 
+	@DynamoDBMarshalling(marshallerClass = OvenTempMarshaller.class)
 	public OvenTemp getOven_temp() {
 		return oven_temp;
 	}
@@ -117,11 +128,13 @@ public class Recipe {
 		this.oven_temp = oven_temp;
 	}
 
-	public List<Author> getSource_authors() {
+	@RemoteTable(inflationClass = Author.class)
+	@DynamoDBMarshalling(marshallerClass = RemotedTableSetMarhsaller.class)
+	public Set<Author> getSource_authors() {
 		return source_authors;
 	}
 
-	public void setSource_authors(List<Author> source_authors) {
+	public void setSource_authors(Set<Author> source_authors) {
 		this.source_authors = source_authors;
 	}
 
@@ -133,14 +146,18 @@ public class Recipe {
 		this.source_url = source_url;
 	}
 
-	public void setSteps(List<Step> steps) {
+	public void setSteps(Set<Step> steps) {
 		this.steps = steps;
 	}
 
-	public List<Step> getSteps() {
+	@RemoteTable(inflationClass = Step.class)
+	@DynamoDBMarshalling(marshallerClass = RemotedTableSetMarhsaller.class)
+	public Set<Step> getSteps() {
 		return steps;
 	}
 
+	@RemoteTable
+	@DynamoDBMarshalling(marshallerClass = RemoteTableMarshaller.class)
 	public Note getNotes() {
 		return notes;
 	}

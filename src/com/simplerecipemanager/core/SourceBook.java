@@ -6,10 +6,12 @@ import java.util.UUID;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.simplerecipemanager.db.RemoteTable;
+import com.simplerecipemanager.db.RemotedTable;
 import com.simplerecipemanager.db.UUIDMarshaller;
 
 @DynamoDBTable(tableName = SourceBook.TABLE_NAME)
-public class SourceBook {
+public class SourceBook implements RemotedTable {
 
 	public static final String TABLE_NAME = "Sources";
 
@@ -29,6 +31,7 @@ public class SourceBook {
 		this.id = id;
 	}
 
+	@RemoteTable
 	public List<Author> getAuthors() {
 		return authors;
 	}

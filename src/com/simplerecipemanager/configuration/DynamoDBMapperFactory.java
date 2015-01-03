@@ -9,6 +9,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.RemoteTableDynamoDBMapper;
 
 public class DynamoDBMapperFactory {
 
@@ -35,6 +36,6 @@ public class DynamoDBMapperFactory {
 		AWSCredentialsProviderChain chain = new AWSCredentialsProviderChain(
 				new InstanceProfileCredentialsProvider(), stringProvider);
 		AmazonDynamoDBClient client = new AmazonDynamoDBClient(chain);
-		return new DynamoDBMapper(client);
+		return new RemoteTableDynamoDBMapper(client);
 	}
 }

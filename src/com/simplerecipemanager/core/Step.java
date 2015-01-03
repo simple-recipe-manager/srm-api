@@ -5,10 +5,11 @@ import java.util.UUID;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.simplerecipemanager.db.RemotedTable;
 import com.simplerecipemanager.db.UUIDMarshaller;
 
 @DynamoDBTable(tableName = Step.TABLE_NAME)
-public class Step {
+public class Step implements RemotedTable {
 
 	public static final String TABLE_NAME = "Steps";
 
@@ -26,6 +27,10 @@ public class Step {
 
 	public void setId(UUID id) {
 		this.id = id;
+	}
+
+	public void setId(String id) {
+		this.id = UUID.fromString(id);
 	}
 
 	public String getStepDetails() {
