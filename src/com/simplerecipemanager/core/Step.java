@@ -5,6 +5,8 @@ import java.util.UUID;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.simplerecipemanager.db.RemoteTable;
+import com.simplerecipemanager.db.RemotedTableMarshaller;
 import com.simplerecipemanager.db.RemotedTable;
 import com.simplerecipemanager.db.UUIDMarshaller;
 
@@ -49,6 +51,8 @@ public class Step implements RemotedTable {
 		this.haccp = haccp;
 	}
 
+	@RemoteTable
+	@DynamoDBMarshalling(marshallerClass = RemotedTableMarshaller.class)
 	public Note getNotes() {
 		return notes;
 	}

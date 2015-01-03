@@ -77,7 +77,7 @@ public class TestResource {
 		ingA.setAmount(amount);
 
 		Ingredient flour = new Ingredient();
-		flour.setIngredientId(UUID.randomUUID());
+		flour.setId(UUID.randomUUID());
 		flour.setName("flour");
 		Note n = new Note();
 		n.setId(UUID.randomUUID());
@@ -100,6 +100,10 @@ public class TestResource {
 		s2.setId(UUID.randomUUID());
 		s2.setOrder(1);
 		s2.setStepDetails("Eat");
+		Note stepNote = new Note();
+		stepNote.setId(UUID.randomUUID());
+		stepNote.setNote("Step note, eat things");
+		s2.setNotes(stepNote);
 
 		steps.add(s1);
 		steps.add(s2);

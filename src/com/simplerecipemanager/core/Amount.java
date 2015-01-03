@@ -1,5 +1,9 @@
 package com.simplerecipemanager.core;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
+import com.simplerecipemanager.db.RemoteTable;
+import com.simplerecipemanager.db.RemotedTableMarshaller;
+
 public class Amount {
 
 	private double value;
@@ -13,6 +17,8 @@ public class Amount {
 		this.value = value;
 	}
 
+	@RemoteTable
+	@DynamoDBMarshalling(marshallerClass = RemotedTableMarshaller.class)
 	public UnitTag getUnit() {
 		return unit;
 	}

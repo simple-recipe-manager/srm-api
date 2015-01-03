@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simplerecipemanager.db.OvenFanMarshaller;
 import com.simplerecipemanager.db.OvenTempMarshaller;
 import com.simplerecipemanager.db.RemoteTable;
-import com.simplerecipemanager.db.RemoteTableMarshaller;
+import com.simplerecipemanager.db.RemotedTableMarshaller;
 import com.simplerecipemanager.db.RemotedTableSetMarhsaller;
 import com.simplerecipemanager.db.UUIDMarshaller;
 
@@ -89,7 +89,7 @@ public class Recipe {
 	}
 
 	@RemoteTable
-	@DynamoDBMarshalling(marshallerClass = RemoteTableMarshaller.class)
+	@DynamoDBMarshalling(marshallerClass = RemotedTableMarshaller.class)
 	public SourceBook getSource_book() {
 		return source_book;
 	}
@@ -157,7 +157,7 @@ public class Recipe {
 	}
 
 	@RemoteTable
-	@DynamoDBMarshalling(marshallerClass = RemoteTableMarshaller.class)
+	@DynamoDBMarshalling(marshallerClass = RemotedTableMarshaller.class)
 	public Note getNotes() {
 		return notes;
 	}

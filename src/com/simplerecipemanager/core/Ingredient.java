@@ -1,32 +1,36 @@
 package com.simplerecipemanager.core;
 
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.simplerecipemanager.db.RemoteTable;
+import com.simplerecipemanager.db.RemotedTable;
+import com.simplerecipemanager.db.RemotedTableMarshaller;
+import com.simplerecipemanager.db.RemotedTableSetMarhsaller;
 import com.simplerecipemanager.db.UUIDMarshaller;
 
 @DynamoDBTable(tableName = Ingredient.TABLE_NAME)
-public class Ingredient {
+public class Ingredient implements RemotedTable {
 
 	public static final String TABLE_NAME = "Ingredients";
 
 	private UUID ingredientId;
 	private String name;
-	private List<Ingredient> substitutions;
-	private List<ProcessingTag> processingTags;
+	private Set<Ingredient> substitutions;
+	private Set<ProcessingTag> processingTags;
 	private Note notes;
 	private String usda_num;
 
 	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
 	@DynamoDBHashKey
-	public UUID getIngredientId() {
+	public UUID getId() {
 		return ingredientId;
 	}
 
-	public void setIngredientId(UUID ingredientId) {
+	public void setId(UUID ingredientId) {
 		this.ingredientId = ingredientId;
 	}
 
@@ -38,22 +42,27 @@ public class Ingredient {
 		this.name = name;
 	}
 
-	public List<Ingredient> getSubstitutions() {
+	@DynamoDBMarshalling(marshallerClass = RemotedTableSetMarhsaller.class)
+	@RemoteTable(inflationClass = Ingredient.class)
+	public Set<Ingredient> getSubstitutions() {
 		return substitutions;
 	}
 
-	public void setSubstitutions(List<Ingredient> substitutions) {
+	public void setSubstitutions(Set<Ingredient> substitutions) {
 		this.substitutions = substitutions;
 	}
 
-	public List<ProcessingTag> getProcessingTags() {
+	@RemoteTable(inflationClass = ProcessingTag.class)
+	@DynamoDBMarshalling(marshallerClass = RemotedTableSetMarhsaller.class)
+	public Set<ProcessingTag> getProcessingTags() {
 		return processingTags;
 	}
 
-	public void setProcessingTags(List<ProcessingTag> processingTags) {
+	public void setProcessingTags(Set<ProcessingTag> processingTags) {
 		this.processingTags = processingTags;
 	}
 
+	@DynamoDBMarshalling(marshallerClass = RemotedTableMarshaller.class)
 	public Note getNotes() {
 		return notes;
 	}
