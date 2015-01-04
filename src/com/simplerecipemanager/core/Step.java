@@ -5,6 +5,7 @@ import java.util.UUID;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.simplerecipemanager.db.HACCPMarshaller;
 import com.simplerecipemanager.db.RemoteTable;
 import com.simplerecipemanager.db.RemotedTableMarshaller;
 import com.simplerecipemanager.db.RemotedTable;
@@ -44,6 +45,7 @@ public class Step implements RemotedTable {
 		this.stepDetails = stepDetails;
 	}
 
+	@DynamoDBMarshalling(marshallerClass = HACCPMarshaller.class)
 	public HACCP getHaccp() {
 		return haccp;
 	}
