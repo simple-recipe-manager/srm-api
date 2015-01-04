@@ -7,4 +7,5 @@ public interface RemotedTable {
 	public UUID getId();
 
 	public void setId(UUID id);
+
 }

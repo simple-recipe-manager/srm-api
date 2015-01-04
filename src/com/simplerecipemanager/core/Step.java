@@ -23,6 +23,7 @@ public class Step implements RemotedTable {
 
 	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
 	@DynamoDBHashKey
+	@Override
 	public UUID getId() {
 		return id;
 	}

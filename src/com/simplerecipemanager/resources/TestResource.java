@@ -1,9 +1,7 @@
 package com.simplerecipemanager.resources;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -56,7 +54,7 @@ public class TestResource {
 
 		toAdd.setRecipe_name("Cookies");
 
-		Map<Yield, List<IngredientAndAmount>> ingredients = new HashMap<Yield, List<IngredientAndAmount>>();
+		Map<Yield, Set<IngredientAndAmount>> ingredients = new HashMap<Yield, Set<IngredientAndAmount>>();
 
 		Yield y = new Yield();
 		y.setServes(40);
@@ -65,7 +63,7 @@ public class TestResource {
 		tag.setTag("cookies");
 		y.setUnit(tag);
 
-		List<IngredientAndAmount> ingredsForYield = new ArrayList<IngredientAndAmount>();
+		Set<IngredientAndAmount> ingredsForYield = new HashSet<IngredientAndAmount>();
 		IngredientAndAmount ingA = new IngredientAndAmount();
 		Amount amount = new Amount();
 		amount.setValue(1);

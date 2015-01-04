@@ -1,5 +1,8 @@
 package com.simplerecipemanager.core;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
+import com.simplerecipemanager.db.RemoteTable;
+import com.simplerecipemanager.db.RemotedTableMarshaller;
 
 public class IngredientAndAmount {
 	private Ingredient ingredient;
@@ -13,6 +16,8 @@ public class IngredientAndAmount {
 		this.amount = amount;
 	}
 
+	@RemoteTable
+	@DynamoDBMarshalling(marshallerClass = RemotedTableMarshaller.class)
 	public Ingredient getIngredient() {
 		return ingredient;
 	}

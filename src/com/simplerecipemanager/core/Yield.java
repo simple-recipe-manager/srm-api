@@ -1,5 +1,9 @@
 package com.simplerecipemanager.core;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
+import com.simplerecipemanager.db.RemoteTable;
+import com.simplerecipemanager.db.RemotedTableMarshaller;
+
 public class Yield {
 	private long serves;
 	private UnitTag unit;
@@ -16,6 +20,8 @@ public class Yield {
 		this.serves = serves;
 	}
 
+	@DynamoDBMarshalling(marshallerClass = RemotedTableMarshaller.class)
+	@RemoteTable
 	public UnitTag getUnit() {
 		return unit;
 	}

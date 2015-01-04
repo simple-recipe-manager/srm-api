@@ -68,7 +68,7 @@ public class RemoteTableDynamoDBMapper extends DynamoDBMapper {
 
 					} else {
 						throw new RuntimeException(
-								"Must be an instance of RemotedTable");
+								"Must be an instance of or a set of RemotedTable");
 					}
 
 				}

@@ -42,15 +42,15 @@ public class RemotedTableSetMarhsaller implements
 				RemotedTable rt = new RemotedTable() {
 
 					@Override
-					public void setId(UUID id) {
-						// TODO Auto-generated method stub
-
-					}
-
-					@Override
 					public UUID getId() {
 
 						return UUID.fromString(s);
+					}
+
+					@Override
+					public void setId(UUID id) {
+						// TODO Auto-generated method stub
+
 					}
 				};
 				toReturn.add(rt);

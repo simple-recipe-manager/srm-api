@@ -1,7 +1,6 @@
 package com.simplerecipemanager.core;
 
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -10,7 +9,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simplerecipemanager.db.OvenFanMarshaller;
 import com.simplerecipemanager.db.OvenTempMarshaller;
@@ -29,7 +27,7 @@ public class Recipe {
 	private OvenFan oven_fan; // Off, Low, High
 	private OvenTemp oven_temp;
 	private long oven_time;
-	private Map<Yield, List<IngredientAndAmount>> ingredients;
+	private Map<Yield, Set<IngredientAndAmount>> ingredients;
 	private Note notes;
 	private SourceBook source_book;
 	private Set<Author> source_authors;
@@ -78,13 +76,11 @@ public class Recipe {
 		this.oven_time = oven_time;
 	}
 
-	@DynamoDBIgnore
-	@JsonIgnore
-	public Map<Yield, List<IngredientAndAmount>> getIngredients() {
+	public Map<Yield, Set<IngredientAndAmount>> getIngredients() {
 		return ingredients;
 	}
 
-	public void setIngredients(Map<Yield, List<IngredientAndAmount>> ingredients) {
+	public void setIngredients(Map<Yield, Set<IngredientAndAmount>> ingredients) {
 		this.ingredients = ingredients;
 	}
 
