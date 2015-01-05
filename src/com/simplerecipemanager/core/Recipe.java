@@ -10,7 +10,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.simplerecipemanager.db.OvenFanMarshaller;
 import com.simplerecipemanager.db.OvenTempMarshaller;
 import com.simplerecipemanager.db.RemoteTable;
@@ -43,7 +42,6 @@ public class Recipe {
 
 	@DynamoDBHashKey
 	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
-	@JsonProperty(required = true)
 	public UUID getRecipe_uuid() {
 		return recipe_uuid;
 	}
