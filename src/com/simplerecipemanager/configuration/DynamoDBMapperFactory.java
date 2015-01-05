@@ -15,7 +15,7 @@ public class DynamoDBMapperFactory {
 	private final AWSCredentialsProvider stringProvider;
 	private final AWSCredentials stringCreds;
 
-	public DynamoDBMapperFactory(String accessKey, String secretKey) {
+	public DynamoDBMapperFactory(final String accessKey, final String secretKey) {
 
 		this.stringCreds = new AWSCredentials() {
 			
