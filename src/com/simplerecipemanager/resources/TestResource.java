@@ -8,6 +8,8 @@ import java.util.UUID;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -35,6 +37,7 @@ public class TestResource {
 
 	@GET
 	@Timed
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response doStuff() {
 		Recipe toAdd = new Recipe();
 		toAdd.setRecipe_uuid(UUID.randomUUID());
@@ -54,7 +57,7 @@ public class TestResource {
 
 		toAdd.setRecipe_name("Cookies");
 
-		Map<Yield, Set<IngredientAndAmount>> ingredients = new HashMap<Yield, Set<IngredientAndAmount>>();
+		Set<Yield> yields = new HashSet<Yield>();
 
 		Yield y = new Yield();
 		y.setServes(40);
@@ -62,31 +65,35 @@ public class TestResource {
 		tag.setId(UUID.randomUUID());
 		tag.setTag("cookies");
 		y.setUnit(tag);
+		y.setId(UUID.randomUUID());
 
-		Set<IngredientAndAmount> ingredsForYield = new HashSet<IngredientAndAmount>();
-		IngredientAndAmount ingA = new IngredientAndAmount();
-		Amount amount = new Amount();
-		amount.setValue(1);
-		UnitTag cup = new UnitTag();
-		cup.setId(UUID.randomUUID());
-		cup.setTag("cup");
-		amount.setUnit(cup);
+		Yield y2 = new Yield();
+		y2.setServes(40);
+		y2.setUnit(tag);
+		y2.setId(UUID.randomUUID());
 
-		ingA.setAmount(amount);
+		yields.add(y);
+		yields.add(y2);
 
-		Ingredient flour = new Ingredient();
-		flour.setId(UUID.randomUUID());
-		flour.setName("flour");
-		Note n = new Note();
-		n.setId(UUID.randomUUID());
-		n.setNote("Don't sift me bro");
-		flour.setNotes(n);
-		ingA.setIngredient(flour);
+		toAdd.setYields(yields);
+		/*
+		 * Set<IngredientAndAmount> ingredsForYield = new
+		 * HashSet<IngredientAndAmount>(); IngredientAndAmount ingA = new
+		 * IngredientAndAmount(); Amount amount = new Amount();
+		 * amount.setValue(1); UnitTag cup = new UnitTag();
+		 * cup.setId(UUID.randomUUID()); cup.setTag("cup"); amount.setUnit(cup);
+		 * 
+		 * ingA.setAmount(amount);
+		 * 
+		 * Ingredient flour = new Ingredient(); flour.setId(UUID.randomUUID());
+		 * flour.setName("flour"); Note n = new Note();
+		 * n.setId(UUID.randomUUID()); n.setNote("Don't sift me bro");
+		 * flour.setNotes(n); ingA.setIngredient(flour);
+		 * 
+		 * ingredsForYield.add(ingA); ingredients.put(y, ingredsForYield);
+		 */
 
-		ingredsForYield.add(ingA);
-		ingredients.put(y, ingredsForYield);
-
-		toAdd.setIngredients(ingredients);
+		// toAdd.setIngredients(ingredients);
 
 		Set<Step> steps = new HashSet<Step>();
 		Step s1 = new Step();
@@ -109,7 +116,7 @@ public class TestResource {
 		toAdd.setSteps(steps);
 
 		mapper.save(toAdd);
-		return Response.ok().build();
+		return Response.ok(toAdd).build();
 
 	}
 

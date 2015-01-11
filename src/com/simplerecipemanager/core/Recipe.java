@@ -21,13 +21,15 @@ import com.simplerecipemanager.db.UUIDMarshaller;
 public class Recipe {
 
 	public static final String TABLE_NAME = "Recipes";
+	public static final String HASH_KEY_NAME = "recipe_uuid";
 
 	private UUID recipe_uuid;
 	private String recipe_name;
 	private OvenFan oven_fan; // Off, Low, High
 	private OvenTemp oven_temp;
 	private long oven_time;
-	private Map<Yield, Set<IngredientAndAmount>> ingredients;
+	private Set<Yield> yields;
+	private Map<String, IngredientAndAmount> ingredients;
 	private Note notes;
 	private SourceBook source_book;
 	private Set<Author> source_authors;
@@ -40,7 +42,7 @@ public class Recipe {
 
 	}
 
-	@DynamoDBHashKey
+	@DynamoDBHashKey(attributeName = HASH_KEY_NAME)
 	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
 	public UUID getRecipe_uuid() {
 		return recipe_uuid;
@@ -78,11 +80,7 @@ public class Recipe {
 	@DynamoDBIgnore
 	@JsonIgnore
 	public Map<Yield, Set<IngredientAndAmount>> getIngredients() {
-		return ingredients;
-	}
-
-	public void setIngredients(Map<Yield, Set<IngredientAndAmount>> ingredients) {
-		this.ingredients = ingredients;
+		return null;
 	}
 
 	@RemoteTable
@@ -93,11 +91,6 @@ public class Recipe {
 
 	public void setSource_book(SourceBook source_book) {
 		this.source_book = source_book;
-	}
-
-	@DynamoDBIgnore
-	public Set<Yield> getYields() {
-		return this.ingredients.keySet();
 	}
 
 	public Set<URL> getImageURLs() {
@@ -161,5 +154,15 @@ public class Recipe {
 
 	public void setNotes(Note notes) {
 		this.notes = notes;
+	}
+
+	@DynamoDBMarshalling(marshallerClass = RemotedTableSetMarhsaller.class)
+	@RemoteTable(inflationClass = Yield.class)
+	public Set<Yield> getYields() {
+		return yields;
+	}
+
+	public void setYields(Set<Yield> yields) {
+		this.yields = yields;
 	}
 }

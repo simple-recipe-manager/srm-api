@@ -1,5 +1,8 @@
 package com.simplerecipemanager.resources;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.ws.rs.GET;
@@ -12,6 +15,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBScanExpression;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.codahale.metrics.annotation.Timed;
 import com.google.common.base.Optional;
 import com.simplerecipemanager.core.Recipe;
@@ -48,6 +53,20 @@ public class RecipesResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Recipe updateExisting() {
 		return null;
+	}
+
+	@GET
+	@Timed
+	@Produces(MediaType.APPLICATION_JSON)
+	public Collection<Recipe> getRecipes(Optional<Integer> limit,
+			Optional<String> last) {
+		Map<String, AttributeValue> startKey = null;
+		if (last.isPresent()) {
+			startKey = new HashMap<>();
+			startKey.put(Recipe.HASH_KEY_NAME, new AttributeValue(last.get()));
+		}
+		return this.mapper.scan(Recipe.class, new DynamoDBScanExpression()
+				.withLimit(limit.or(100)).withExclusiveStartKey(startKey));
 	}
 
 	private Recipe getRecipeForId(String id, String format) {
