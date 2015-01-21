@@ -15,7 +15,6 @@ import com.simplerecipemanager.db.OvenTempMarshaller;
 import com.simplerecipemanager.db.RemoteTable;
 import com.simplerecipemanager.db.RemotedTableMarshaller;
 import com.simplerecipemanager.db.RemotedTableSetMarhsaller;
-import com.simplerecipemanager.db.UUIDMarshaller;
 
 @DynamoDBTable(tableName = Recipe.TABLE_NAME)
 public class Recipe {
@@ -23,7 +22,7 @@ public class Recipe {
 	public static final String TABLE_NAME = "Recipes";
 	public static final String HASH_KEY_NAME = "recipe_uuid";
 
-	private UUID recipe_uuid;
+	private UUID id;
 	private String recipe_name;
 	private OvenFan oven_fan; // Off, Low, High
 	private OvenTemp oven_temp;
@@ -43,13 +42,12 @@ public class Recipe {
 	}
 
 	@DynamoDBHashKey(attributeName = HASH_KEY_NAME)
-	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
-	public UUID getRecipe_uuid() {
-		return recipe_uuid;
+	public String getId() {
+		return id.toString();
 	}
 
-	public void setRecipe_uuid(UUID recipe_uuid) {
-		this.recipe_uuid = recipe_uuid;
+	public void setId(String id) {
+		this.id = UUID.fromString(id);
 	}
 
 	public String getRecipe_name() {

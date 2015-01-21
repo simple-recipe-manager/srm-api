@@ -8,7 +8,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.simplerecipemanager.db.RemoteTable;
 import com.simplerecipemanager.db.RemotedTable;
 import com.simplerecipemanager.db.RemotedTableMarshaller;
-import com.simplerecipemanager.db.UUIDMarshaller;
 
 @DynamoDBTable(tableName = Yield.TABLE_NAME)
 public class Yield implements RemotedTable {
@@ -41,16 +40,13 @@ public class Yield implements RemotedTable {
 		this.unit = unit;
 	}
 
-	@Override
-	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
 	@DynamoDBHashKey
-	public UUID getId() {
-		return this.id;
+	public String getId() {
+		return id.toString();
 	}
 
 	@Override
-	public void setId(UUID id) {
-		this.id = id;
-
+	public void setId(String id) {
+		this.id = UUID.fromString(id);
 	}
 }

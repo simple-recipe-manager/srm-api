@@ -43,7 +43,7 @@ public class RemoteTableDynamoDBMapper extends DynamoDBMapper {
 						RemotedTable castedToStore = (RemotedTable) remoteObjectToStore;
 						RemotedTable toReplaceWith = (RemotedTable) remoteObjectToStore
 								.getClass().newInstance();
-						toReplaceWith.setId(castedToStore.getId());
+						toReplaceWith.setId(castedToStore.getId().toString());
 						RemoteTableDynamoDBMapper.this
 								.save(remoteObjectToStore);
 						Method setter = reflector.getSetter(m);
@@ -58,7 +58,7 @@ public class RemoteTableDynamoDBMapper extends DynamoDBMapper {
 						for (RemotedTable item : (Set<? extends RemotedTable>) remoteObjectToStore) {
 							RemotedTable toReplaceWith = (RemotedTable) item
 									.getClass().newInstance();
-							toReplaceWith.setId(item.getId());
+							toReplaceWith.setId(item.getId().toString());
 							RemoteTableDynamoDBMapper.this.save(item);
 							toStoreAsReplacement.add((T) toReplaceWith);
 						}
@@ -100,20 +100,20 @@ public class RemoteTableDynamoDBMapper extends DynamoDBMapper {
 						Set<Object> toPutBack = new HashSet<Object>();
 						Set<? extends RemotedTable> keysToLoad = (Set<? extends RemotedTable>) idHolder;
 						for (RemotedTable toLoad : keysToLoad) {
-							RemotedTable loadMe = m
-									.getAnnotation(RemoteTable.class)
-									.inflationClass().newInstance();
-							loadMe.setId(toLoad.getId());
 							Object loaded = RemoteTableDynamoDBMapper.this
-									.load(loadMe);
+									.load(m.getAnnotation(RemoteTable.class)
+											.inflationClass(), toLoad.getId()
+											.toString(), null, config);
 
 							toPutBack.add(loaded);
 						}
 						Method setter = reflector.getSetter(m);
 						setter.invoke(toFillIn, toPutBack);
 					} else {
-						Object loaded = RemoteTableDynamoDBMapper.this
-								.load(idHolder);
+						RemotedTable remotedCastObject = (RemotedTable) idHolder;
+						Object loaded = RemoteTableDynamoDBMapper.this.load(
+								idHolder.getClass(), remotedCastObject.getId()
+										.toString(), null, config);
 						if (loaded == null) {
 							throw new RuntimeException(
 									"Could not load remote object");
@@ -123,7 +123,7 @@ public class RemoteTableDynamoDBMapper extends DynamoDBMapper {
 					}
 				}
 			} catch (IllegalAccessException | IllegalArgumentException
-					| InvocationTargetException | InstantiationException ex) {
+					| InvocationTargetException ex) {
 				throw new RuntimeException(ex);
 			}
 		}

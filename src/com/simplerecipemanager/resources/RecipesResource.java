@@ -45,7 +45,7 @@ public class RecipesResource {
 	@Timed
 	@Produces(MediaType.APPLICATION_JSON)
 	public Recipe saveNewRecipe(Recipe toSave) {
-		return validateAndSaveRecipe(toSave, UUID.randomUUID());
+		return validateAndSaveRecipe(toSave, UUID.randomUUID().toString());
 	}
 
 	@PUT
@@ -71,11 +71,11 @@ public class RecipesResource {
 
 	private Recipe getRecipeForId(String id, String format) {
 		UUID toLoad = UUID.fromString(id);
-		return this.mapper.load(Recipe.class, toLoad);
+		return this.mapper.load(Recipe.class, toLoad.toString());
 	}
 
-	private Recipe validateAndSaveRecipe(Recipe toSave, UUID idToSave) {
-		toSave.setRecipe_uuid(idToSave);
+	private Recipe validateAndSaveRecipe(Recipe toSave, String idToSave) {
+		toSave.setId(idToSave);
 		this.mapper.save(toSave);
 		return toSave;
 	}

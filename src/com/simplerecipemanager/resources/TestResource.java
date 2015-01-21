@@ -40,9 +40,9 @@ public class TestResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response doStuff() {
 		Recipe toAdd = new Recipe();
-		toAdd.setRecipe_uuid(UUID.randomUUID());
+		toAdd.setId(UUID.randomUUID().toString());
 		Note recipeNote = new Note();
-		recipeNote.setId(UUID.randomUUID());
+		recipeNote.setId(UUID.randomUUID().toString());
 		recipeNote.setNote("Hello, I'm a note!");
 		toAdd.setNotes(recipeNote);
 		toAdd.setOven_fan(OvenFan.LOW);
@@ -62,15 +62,15 @@ public class TestResource {
 		Yield y = new Yield();
 		y.setServes(40);
 		UnitTag tag = new UnitTag();
-		tag.setId(UUID.randomUUID());
+		tag.setId(UUID.randomUUID().toString());
 		tag.setTag("cookies");
 		y.setUnit(tag);
-		y.setId(UUID.randomUUID());
+		y.setId(UUID.randomUUID().toString());
 
 		Yield y2 = new Yield();
 		y2.setServes(40);
 		y2.setUnit(tag);
-		y2.setId(UUID.randomUUID());
+		y2.setId(UUID.randomUUID().toString());
 
 		yields.add(y);
 		yields.add(y2);
@@ -97,16 +97,16 @@ public class TestResource {
 
 		Set<Step> steps = new HashSet<Step>();
 		Step s1 = new Step();
-		s1.setId(UUID.randomUUID());
+		s1.setId(UUID.randomUUID().toString());
 		s1.setOrder(0);
 		s1.setStepDetails("Pour in bowl");
 
 		Step s2 = new Step();
-		s2.setId(UUID.randomUUID());
+		s2.setId(UUID.randomUUID().toString());
 		s2.setOrder(1);
 		s2.setStepDetails("Eat");
 		Note stepNote = new Note();
-		stepNote.setId(UUID.randomUUID());
+		stepNote.setId(UUID.randomUUID().toString());
 		stepNote.setNote("Step note, eat things");
 		s2.setNotes(stepNote);
 

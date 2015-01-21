@@ -10,7 +10,6 @@ import com.simplerecipemanager.db.RemoteTable;
 import com.simplerecipemanager.db.RemotedTable;
 import com.simplerecipemanager.db.RemotedTableMarshaller;
 import com.simplerecipemanager.db.RemotedTableSetMarhsaller;
-import com.simplerecipemanager.db.UUIDMarshaller;
 
 @DynamoDBTable(tableName = SourceBook.TABLE_NAME)
 public class SourceBook implements RemotedTable {
@@ -23,14 +22,13 @@ public class SourceBook implements RemotedTable {
 	private String ISBN;
 	private Note notes;
 
-	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
 	@DynamoDBHashKey
-	public UUID getId() {
-		return id;
+	public String getId() {
+		return id.toString();
 	}
 
-	public void setId(UUID id) {
-		this.id = id;
+	public void setId(String id) {
+		this.id = UUID.fromString(id);
 	}
 
 	@RemoteTable(inflationClass = Author.class)

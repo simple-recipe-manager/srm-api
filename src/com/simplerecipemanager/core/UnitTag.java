@@ -3,10 +3,8 @@ package com.simplerecipemanager.core;
 import java.util.UUID;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.simplerecipemanager.db.RemotedTable;
-import com.simplerecipemanager.db.UUIDMarshaller;
 
 @DynamoDBTable(tableName = UnitTag.TABLE_NAME)
 public class UnitTag implements RemotedTable {
@@ -15,13 +13,12 @@ public class UnitTag implements RemotedTable {
 	private String tag;
 
 	@DynamoDBHashKey
-	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
-	public UUID getId() {
-		return id;
+	public String getId() {
+		return id.toString();
 	}
 
-	public void setId(UUID id) {
-		this.id = id;
+	public void setId(String id) {
+		this.id = UUID.fromString(id);
 	}
 
 	public String getTag() {

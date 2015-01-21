@@ -3,7 +3,6 @@ package com.simplerecipemanager.db;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshaller;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -42,13 +41,13 @@ public class RemotedTableSetMarhsaller implements
 				RemotedTable rt = new RemotedTable() {
 
 					@Override
-					public UUID getId() {
+					public String getId() {
 
-						return UUID.fromString(s);
+						return s;
 					}
 
 					@Override
-					public void setId(UUID id) {
+					public void setId(String id) {
 						// TODO Auto-generated method stub
 
 					}

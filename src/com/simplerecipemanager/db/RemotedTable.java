@@ -4,8 +4,8 @@ import java.util.UUID;
 
 public interface RemotedTable {
 
-	public UUID getId();
+	public String getId();
 
-	public void setId(UUID id);
+	public void setId(String id);
 
 }

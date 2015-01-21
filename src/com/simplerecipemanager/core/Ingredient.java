@@ -10,28 +10,26 @@ import com.simplerecipemanager.db.RemoteTable;
 import com.simplerecipemanager.db.RemotedTable;
 import com.simplerecipemanager.db.RemotedTableMarshaller;
 import com.simplerecipemanager.db.RemotedTableSetMarhsaller;
-import com.simplerecipemanager.db.UUIDMarshaller;
 
 @DynamoDBTable(tableName = Ingredient.TABLE_NAME)
 public class Ingredient implements RemotedTable {
 
 	public static final String TABLE_NAME = "Ingredients";
 
-	private UUID ingredientId;
+	private UUID id;
 	private String name;
 	private Set<Ingredient> substitutions;
 	private Set<ProcessingTag> processingTags;
 	private Note notes;
 	private String usda_num;
 
-	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
 	@DynamoDBHashKey
-	public UUID getId() {
-		return ingredientId;
+	public String getId() {
+		return id.toString();
 	}
 
-	public void setId(UUID ingredientId) {
-		this.ingredientId = ingredientId;
+	public void setId(String id) {
+		this.id = UUID.fromString(id);
 	}
 
 	public String getName() {

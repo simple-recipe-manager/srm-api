@@ -7,9 +7,8 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.simplerecipemanager.db.HACCPMarshaller;
 import com.simplerecipemanager.db.RemoteTable;
-import com.simplerecipemanager.db.RemotedTableMarshaller;
 import com.simplerecipemanager.db.RemotedTable;
-import com.simplerecipemanager.db.UUIDMarshaller;
+import com.simplerecipemanager.db.RemotedTableMarshaller;
 
 @DynamoDBTable(tableName = Step.TABLE_NAME)
 public class Step implements RemotedTable {
@@ -22,15 +21,9 @@ public class Step implements RemotedTable {
 	private Note notes;
 	private int order;
 
-	@DynamoDBMarshalling(marshallerClass = UUIDMarshaller.class)
 	@DynamoDBHashKey
-	@Override
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
+	public String getId() {
+		return id.toString();
 	}
 
 	public void setId(String id) {
