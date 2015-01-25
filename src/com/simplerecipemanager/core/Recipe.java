@@ -13,7 +13,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.simplerecipemanager.db.OvenFanMarshaller;
 import com.simplerecipemanager.db.OvenTempMarshaller;
 import com.simplerecipemanager.db.RemoteTable;
@@ -90,11 +89,13 @@ public class Recipe {
 	}
 
 	@DynamoDBIgnore
-	@JsonSerialize()
 	public Map<Yield, Set<IngredientAndAmount>> getIngredients() {
 		Map<Yield, Set<IngredientAndAmount>> toReturn = new HashMap<Yield, Set<IngredientAndAmount>>();
 		for (Yield y : this.yields) {
 			Set<String> ingrdsAndAmountForYield = this.yieldSets.get(y.getId());
+			if (ingrdsAndAmountForYield == null) {
+				continue;
+			}
 			Set<IngredientAndAmount> forYield = new HashSet<IngredientAndAmount>();
 			for (String ingrAndAmountId : ingrdsAndAmountForYield) {
 				forYield.add(ingrAndAmountForId(ingrAndAmountId));
@@ -102,6 +103,10 @@ public class Recipe {
 			toReturn.put(y, forYield);
 		}
 		return toReturn;
+	}
+
+	public void setIngredients(Map<Yield, Set<IngredientAndAmount>> ingrs) {
+		// no-op
 	}
 
 	@RemoteTable

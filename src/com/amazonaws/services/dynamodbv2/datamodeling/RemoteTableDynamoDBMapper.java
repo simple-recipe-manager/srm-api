@@ -24,6 +24,7 @@ public class RemoteTableDynamoDBMapper extends DynamoDBMapper {
 		super(ddb);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void save(T object) {
 		Set<? extends RemotedTable> testSet = new HashSet<>();
@@ -80,6 +81,7 @@ public class RemoteTableDynamoDBMapper extends DynamoDBMapper {
 		super.save(object);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T extends Object> T load(Class<T> clazz, Object hashKey,
 			Object rangeKey, DynamoDBMapperConfig config) {

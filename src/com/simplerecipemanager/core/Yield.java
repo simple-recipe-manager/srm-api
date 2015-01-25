@@ -49,4 +49,9 @@ public class Yield implements RemotedTable {
 	public void setId(String id) {
 		this.id = UUID.fromString(id);
 	}
+
+	@Override
+	public String toString() {
+		return this.id.toString();
+	}
 }
