@@ -1,8 +1,6 @@
 package com.simplerecipemanager.resources;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,7 +12,6 @@ import javax.ws.rs.core.Response;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.codahale.metrics.annotation.Timed;
-import com.simplerecipemanager.core.Amount;
 import com.simplerecipemanager.core.Ingredient;
 import com.simplerecipemanager.core.IngredientAndAmount;
 import com.simplerecipemanager.core.Note;
@@ -76,24 +73,34 @@ public class TestResource {
 		yields.add(y2);
 
 		toAdd.setYields(yields);
-		/*
-		 * Set<IngredientAndAmount> ingredsForYield = new
-		 * HashSet<IngredientAndAmount>(); IngredientAndAmount ingA = new
-		 * IngredientAndAmount(); Amount amount = new Amount();
-		 * amount.setValue(1); UnitTag cup = new UnitTag();
-		 * cup.setId(UUID.randomUUID()); cup.setTag("cup"); amount.setUnit(cup);
-		 * 
-		 * ingA.setAmount(amount);
-		 * 
-		 * Ingredient flour = new Ingredient(); flour.setId(UUID.randomUUID());
-		 * flour.setName("flour"); Note n = new Note();
-		 * n.setId(UUID.randomUUID()); n.setNote("Don't sift me bro");
-		 * flour.setNotes(n); ingA.setIngredient(flour);
-		 * 
-		 * ingredsForYield.add(ingA); ingredients.put(y, ingredsForYield);
-		 */
 
-		// toAdd.setIngredients(ingredients);
+		Set<IngredientAndAmount> ingredsForYield = new HashSet<IngredientAndAmount>();
+
+		IngredientAndAmount flour1Cup = new IngredientAndAmount();
+
+		flour1Cup.setId(UUID.randomUUID().toString());
+
+		UnitTag cup = new UnitTag();
+		cup.setId(UUID.randomUUID().toString());
+		cup.setTag("cup");
+
+		flour1Cup.setValue(1);
+		flour1Cup.setUnit(cup);
+
+		Ingredient flour = new Ingredient();
+		flour.setId(UUID.randomUUID().toString());
+		flour.setName("flour");
+
+		Note n = new Note();
+		n.setId(UUID.randomUUID().toString());
+		n.setNote("Don't sift me bro");
+		flour.setNotes(n);
+
+		flour1Cup.setIngredient(flour);
+
+		ingredsForYield.add(flour1Cup);
+
+		toAdd.addIngredientAndAmountForYeild(flour1Cup, y);
 
 		Set<Step> steps = new HashSet<Step>();
 		Step s1 = new Step();

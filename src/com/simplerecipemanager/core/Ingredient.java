@@ -61,6 +61,7 @@ public class Ingredient implements RemotedTable {
 	}
 
 	@DynamoDBMarshalling(marshallerClass = RemotedTableMarshaller.class)
+	@RemoteTable
 	public Note getNotes() {
 		return notes;
 	}

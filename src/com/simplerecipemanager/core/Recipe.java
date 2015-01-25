@@ -1,7 +1,10 @@
 package com.simplerecipemanager.core;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.UUID;
 
@@ -10,6 +13,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMarshalling;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.simplerecipemanager.db.OvenFanMarshaller;
 import com.simplerecipemanager.db.OvenTempMarshaller;
 import com.simplerecipemanager.db.RemoteTable;
@@ -28,7 +32,6 @@ public class Recipe {
 	private OvenTemp oven_temp;
 	private long oven_time;
 	private Set<Yield> yields;
-	private Map<String, IngredientAndAmount> ingredients;
 	private Note notes;
 	private SourceBook source_book;
 	private Set<Author> source_authors;
@@ -36,9 +39,11 @@ public class Recipe {
 	private Set<Step> steps;
 	private Set<URL> imageURLs;
 	private URL defaultImageURL;
+	private Map<String, Set<String>> yieldSets;
+	private Set<IngredientAndAmount> allIngredients;
 
 	public Recipe() {
-
+		this.allIngredients = new HashSet<>();
 	}
 
 	@DynamoDBHashKey(attributeName = HASH_KEY_NAME)
@@ -75,10 +80,28 @@ public class Recipe {
 		this.oven_time = oven_time;
 	}
 
-	@DynamoDBIgnore
-	@JsonIgnore
-	public Map<Yield, Set<IngredientAndAmount>> getIngredients() {
+	private IngredientAndAmount ingrAndAmountForId(String id) {
+		for (IngredientAndAmount ia : this.allIngredients) {
+			if (ia.getId().equals(id)) {
+				return ia;
+			}
+		}
 		return null;
+	}
+
+	@DynamoDBIgnore
+	@JsonSerialize()
+	public Map<Yield, Set<IngredientAndAmount>> getIngredients() {
+		Map<Yield, Set<IngredientAndAmount>> toReturn = new HashMap<Yield, Set<IngredientAndAmount>>();
+		for (Yield y : this.yields) {
+			Set<String> ingrdsAndAmountForYield = this.yieldSets.get(y.getId());
+			Set<IngredientAndAmount> forYield = new HashSet<IngredientAndAmount>();
+			for (String ingrAndAmountId : ingrdsAndAmountForYield) {
+				forYield.add(ingrAndAmountForId(ingrAndAmountId));
+			}
+			toReturn.put(y, forYield);
+		}
+		return toReturn;
 	}
 
 	@RemoteTable
@@ -156,11 +179,52 @@ public class Recipe {
 
 	@DynamoDBMarshalling(marshallerClass = RemotedTableSetMarhsaller.class)
 	@RemoteTable(inflationClass = Yield.class)
+	@JsonIgnore
 	public Set<Yield> getYields() {
 		return yields;
 	}
 
 	public void setYields(Set<Yield> yields) {
 		this.yields = yields;
+	}
+
+	@JsonIgnore
+	public Map<String, Set<String>> getYieldSets() {
+		Map<String, Set<String>> tr = new HashMap<>();
+		for (Entry<String, Set<String>> entry : this.yieldSets.entrySet()) {
+			if (!entry.getValue().isEmpty()) {
+				tr.put(entry.getKey(), entry.getValue());
+			}
+		}
+		return tr;
+	}
+
+	public void setYieldSets(Map<String, Set<String>> yieldSets) {
+		this.yieldSets = yieldSets;
+	}
+
+	public void addIngredientAndAmountForYeild(IngredientAndAmount iaa, Yield y) {
+		if (allIngredients == null) {
+			allIngredients = new HashSet<>();
+		}
+		this.allIngredients.add(iaa);
+		if (this.yieldSets == null) {
+			this.yieldSets = new HashMap<>();
+		}
+		if (this.yieldSets.get(y.getId()) == null) {
+			this.yieldSets.put(y.getId(), new HashSet<String>());
+		}
+		this.yieldSets.get(y.getId()).add(iaa.getId());
+	}
+
+	@DynamoDBMarshalling(marshallerClass = RemotedTableSetMarhsaller.class)
+	@RemoteTable(inflationClass = IngredientAndAmount.class)
+	@JsonIgnore
+	public Set<IngredientAndAmount> getAllIngredients() {
+		return allIngredients;
+	}
+
+	public void setAllIngredients(Set<IngredientAndAmount> allIngredients) {
+		this.allIngredients = allIngredients;
 	}
 }
