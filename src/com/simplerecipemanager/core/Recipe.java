@@ -189,7 +189,6 @@ public class Recipe {
 
 	@DynamoDBMarshalling(marshallerClass = RemotedTableSetMarhsaller.class)
 	@RemoteTable(inflationClass = Yield.class)
-	@JsonIgnore
 	public Set<Yield> getYields() {
 		return yields;
 	}
