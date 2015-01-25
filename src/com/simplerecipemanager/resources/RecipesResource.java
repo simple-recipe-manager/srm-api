@@ -51,7 +51,7 @@ public class RecipesResource {
 	@PUT
 	@Timed
 	@Produces(MediaType.APPLICATION_JSON)
-	public Recipe updateExisting() {
+	public Recipe updateExisting(Recipe toEdit) {
 		return null;
 	}
 

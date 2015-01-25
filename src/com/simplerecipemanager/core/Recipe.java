@@ -18,6 +18,7 @@ import com.simplerecipemanager.db.OvenTempMarshaller;
 import com.simplerecipemanager.db.RemoteTable;
 import com.simplerecipemanager.db.RemotedTableMarshaller;
 import com.simplerecipemanager.db.RemotedTableSetMarhsaller;
+import com.simplerecipemanager.db.URLMarshaller;
 
 @DynamoDBTable(tableName = Recipe.TABLE_NAME)
 public class Recipe {
@@ -40,6 +41,8 @@ public class Recipe {
 	private URL defaultImageURL;
 	private Map<String, Set<String>> yieldSets;
 	private Set<IngredientAndAmount> allIngredients;
+	private long prepTime;
+	private long cookingTime;
 
 	public Recipe() {
 		this.allIngredients = new HashSet<>();
@@ -127,6 +130,7 @@ public class Recipe {
 		this.imageURLs = imageURLs;
 	}
 
+	@DynamoDBMarshalling(marshallerClass = URLMarshaller.class)
 	public URL getDefaultImageURL() {
 		return defaultImageURL;
 	}
@@ -154,6 +158,7 @@ public class Recipe {
 		this.source_authors = source_authors;
 	}
 
+	@DynamoDBMarshalling(marshallerClass = URLMarshaller.class)
 	public URL getSource_url() {
 		return source_url;
 	}
@@ -231,5 +236,21 @@ public class Recipe {
 
 	public void setAllIngredients(Set<IngredientAndAmount> allIngredients) {
 		this.allIngredients = allIngredients;
+	}
+
+	public long getPrepTime() {
+		return prepTime;
+	}
+
+	public void setPrepTime(long prepTime) {
+		this.prepTime = prepTime;
+	}
+
+	public long getCookingTime() {
+		return cookingTime;
+	}
+
+	public void setCookingTime(long cookingTime) {
+		this.cookingTime = cookingTime;
 	}
 }

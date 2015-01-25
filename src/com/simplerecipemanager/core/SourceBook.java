@@ -14,7 +14,7 @@ import com.simplerecipemanager.db.RemotedTableSetMarhsaller;
 @DynamoDBTable(tableName = SourceBook.TABLE_NAME)
 public class SourceBook implements RemotedTable {
 
-	public static final String TABLE_NAME = "Sources";
+	public static final String TABLE_NAME = "SourceBooks";
 
 	private UUID id;
 	private Set<Author> authors;
