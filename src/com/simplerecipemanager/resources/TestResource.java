@@ -64,6 +64,11 @@ public class TestResource {
 		toAdd.setSource_url(new URL(
 				"https://www.verybestbaking.com/recipes/18476/original-nestle-toll-house-chocolate-chip-cookies/"));
 
+		toAdd.setDefaultImageURL(new URL(
+				"https://s3.amazonaws.com/srm-images/64ce0f53-1b4f-47fd-8850-551a2f5d9277.jpg"));
+
+		toAdd.setAddedAt(System.currentTimeMillis());
+
 		SourceBook book = new SourceBook();
 		book.setId(UUID.randomUUID().toString());
 		book.setTitle("Nestle Tollhouse Cookbook");
@@ -143,7 +148,7 @@ public class TestResource {
 		toAdd.addIngredientAndAmountForYeild(bsTsp, y);
 		toAdd.addIngredientAndAmountForYeild(saltTsp, y);
 		toAdd.addIngredientAndAmountForYeild(butterCup, y);
-		
+
 		Set<Step> steps = new HashSet<Step>();
 
 		Step s1 = new Step();

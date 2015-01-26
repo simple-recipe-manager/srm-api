@@ -43,9 +43,11 @@ public class Recipe {
 	private Set<IngredientAndAmount> allIngredients;
 	private long prepTime;
 	private long cookingTime;
+	private long addedAt;
 
 	public Recipe() {
 		this.allIngredients = new HashSet<>();
+		this.addedAt = System.currentTimeMillis();
 	}
 
 	@DynamoDBHashKey(attributeName = HASH_KEY_NAME)
@@ -251,5 +253,13 @@ public class Recipe {
 
 	public void setCookingTime(long cookingTime) {
 		this.cookingTime = cookingTime;
+	}
+
+	public long getAddedAt() {
+		return addedAt;
+	}
+
+	public void setAddedAt(long addedAt) {
+		this.addedAt = addedAt;
 	}
 }
