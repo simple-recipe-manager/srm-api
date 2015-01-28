@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/simple-recipe-manager/srm-api.svg?branch=master)](https://travis-ci.org/simple-recipe-manager/srm-api)
+
 This is the API repo for Simple Recipe Manager
 
 For a local run
