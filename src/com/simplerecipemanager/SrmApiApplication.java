@@ -8,6 +8,7 @@ import com.simplerecipemanager.configuration.SrmApiConfiguration;
 import com.simplerecipemanager.health.ConnectionHealthCheck;
 import com.simplerecipemanager.resources.HealthCheckResource;
 import com.simplerecipemanager.resources.RecipesResource;
+import com.simplerecipemanager.resources.SearchResource;
 import com.simplerecipemanager.resources.TestResource;
 
 public class SrmApiApplication extends Application<SrmApiConfiguration> {
@@ -17,6 +18,7 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 
 	@Override
 	public void initialize(Bootstrap<SrmApiConfiguration> arg0) {
+
 	}
 
 	@Override
@@ -26,6 +28,10 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 		final RecipesResource reipceResource = new RecipesResource(
 				configuration.getMapperFactory().build(environment));
 		environment.jersey().register(reipceResource);
+
+		final SearchResource searchResource = new SearchResource(configuration
+				.getCloudSearchFactory().buildNameSearch(environment));
+		environment.jersey().register(searchResource);
 
 		final ConnectionHealthCheck connHC = new ConnectionHealthCheck(
 				configuration.getMapperFactory().build(environment));
