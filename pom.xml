@@ -46,6 +46,19 @@
 				<artifactId>git-commit-id-plugin</artifactId>
 				<groupId>pl.project12.maven</groupId>
 				<version>2.1.12</version>
+				<executions>
+                       <execution>
+                           <goals>
+                               <goal>revision</goal>
+                           </goals>
+                       </execution>
+                   </executions>
+                   <configuration>
+                       <prefix>git</prefix> <!-- that's the default value -->
+                       <dateFormat>dd.MM.yyyy '@' HH:mm:ss z</dateFormat> <!-- that's the default value -->
+                       <verbose>true</verbose> <!-- false is default for this -->
+                       <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory> <!-- required, you have to specify this path -->
+                   </configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
