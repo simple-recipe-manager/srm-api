@@ -1,7 +1,7 @@
 FROM dockerfile/java
 
 RUN mkdir /app
-ADD https://s3.amazonaws.com/srmbuildartifact/target/SRM-API.jar /app/server.jar
+ADD https://s3.amazonaws.com/srmbuildartifact/target/JAR_NAME /app/server.jar
 
 CMD ["java", "-jar", "/app/server.jar", "server" ]
 

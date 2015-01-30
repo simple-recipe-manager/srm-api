@@ -6,9 +6,47 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Simple Recipe Manager API</name>
 	<build>
-		<finalName>SRM-API</finalName>
+		<finalName>SRM-${project.version}</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>clean</id>
+						<phase>clean</phase>
+						<configuration>
+							<tasks>
+								<delete file="Dockerfile" failonerror="false" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>package</id>
+						<phase>package</phase>
+						<configuration>
+							<tasks>
+								<copy file="Dockerfile.template" toFile="Dockerfile.rewrite" />
+								<replace file="Dockerfile.rewrite" token="JAR_NAME" value="${project.build.finalName}" />
+								<move file="Dockerfile.rewrite" tofile="Dockerfile" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<groupId>pl.project12.maven</groupId>
+				<version>2.1.12</version>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
