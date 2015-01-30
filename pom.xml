@@ -44,7 +44,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>git-commit-id-plugin</artifactId>
-				<groupId>pl.project12.maven</groupId>
+				<groupId>pl.project13.maven</groupId>
 				<version>2.1.12</version>
 				<executions>
                        <execution>
