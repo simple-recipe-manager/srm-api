@@ -6,7 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Simple Recipe Manager API</name>
 	<build>
-		<finalName>SRM-${project.version}</finalName>
+		<finalName>SRM-${git.commit.id}</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
 			<plugin>
