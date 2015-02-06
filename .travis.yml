@@ -3,16 +3,17 @@ deploy:
 - provider: s3
   access_key_id: $ACCESS_KEY_ID
   secret_access_key: $SECRET_KEY
-  bucket: travis-build-artifacts
+  bucket: $BUCKET_NAME
   skip_cleanup: true
-  upload-dir: travis-srm-api
+  upload-dir: $FOLDER
 env:
   global:
   - REGION=us-east-1
   - ELB_ENV_ID=e-wpz7sapjhf
   - APPLICATION_NAME="Simple Recipe Manager"
   - BUCKET_NAME=travis-build-artifacts
-  - FILE_KEY=travis-srm-api/Dockerfile
+  - FOLDER=travis-srm-api
+  - FILE_KEY=$FOLDER/Dockerfile
   - secure: "d+r/+vXoWpjPvc3/RK8bQ9fEYHriEs7BiRJeC1zZ3NKcK3smgoB+u3qtRiY2u0GjQSc9Q0dDRUKcrYyi1Iqgv4fHylm4HhAr/Ogo3vcdk87JfeTfJ8aCr18/fNuS326gpSX5I1EoNUf79u5NJyziZwl30n26VoIS4kNaX+BsoPA="
   - secure: "tgunEAHXx8rGMRHw2BKPlEVsHXFtURLg3GTehfRubs1TLfXKO5QJmHupxLdD2mO9J2g77WTdGWVOhi7qBdTfCd8OTPHOY9g1gVYomHWFs9F3m/SNKxgJFa4O1fQbAPcGACe+r24NsbpI6TxOBm79hPkm0ZZKRUXJDTg69GpL7tQ="
 after_deploy:
