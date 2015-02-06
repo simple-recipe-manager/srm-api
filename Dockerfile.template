@@ -1,7 +1,7 @@
 FROM dockerfile/java
 
 RUN mkdir /app
-ADD https://s3.amazonaws.com/srmbuildartifact/target/JAR_NAME.jar /app/server.jar
+ADD https://s3.amazonaws.com/travis-build-artifacts/travis-srm-api/target/JAR_NAME.jar /app/server.jar
 
 CMD ["java", "-jar", "/app/server.jar", "server" ]
 
