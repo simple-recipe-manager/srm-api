@@ -12,8 +12,8 @@ env:
   - APPLICATION_NAME="Simple Recipe Manager"
   - BUCKET_NAME=travis-build-artifacts
   - FILE_KEY=travis-srm-api/Dockerfile
-  secure: "d+r/+vXoWpjPvc3/RK8bQ9fEYHriEs7BiRJeC1zZ3NKcK3smgoB+u3qtRiY2u0GjQSc9Q0dDRUKcrYyi1Iqgv4fHylm4HhAr/Ogo3vcdk87JfeTfJ8aCr18/fNuS326gpSX5I1EoNUf79u5NJyziZwl30n26VoIS4kNaX+BsoPA="
-  secure: "tgunEAHXx8rGMRHw2BKPlEVsHXFtURLg3GTehfRubs1TLfXKO5QJmHupxLdD2mO9J2g77WTdGWVOhi7qBdTfCd8OTPHOY9g1gVYomHWFs9F3m/SNKxgJFa4O1fQbAPcGACe+r24NsbpI6TxOBm79hPkm0ZZKRUXJDTg69GpL7tQ="
+  - secure: "d+r/+vXoWpjPvc3/RK8bQ9fEYHriEs7BiRJeC1zZ3NKcK3smgoB+u3qtRiY2u0GjQSc9Q0dDRUKcrYyi1Iqgv4fHylm4HhAr/Ogo3vcdk87JfeTfJ8aCr18/fNuS326gpSX5I1EoNUf79u5NJyziZwl30n26VoIS4kNaX+BsoPA="
+  - secure: "tgunEAHXx8rGMRHw2BKPlEVsHXFtURLg3GTehfRubs1TLfXKO5QJmHupxLdD2mO9J2g77WTdGWVOhi7qBdTfCd8OTPHOY9g1gVYomHWFs9F3m/SNKxgJFa4O1fQbAPcGACe+r24NsbpI6TxOBm79hPkm0ZZKRUXJDTg69GpL7tQ="
 after_deploy:
 - sudo pip install awscli
 - export AWS_ACCESS_KEY_ID=$ACCESS_KEY_ID
