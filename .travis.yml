@@ -5,6 +5,7 @@ deploy:
   secret_access_key: $SECRET_KEY
   bucket: travis-build-artifacts
   skip_cleanup: true
+  upload-dir: travis-srm-api
 env:
   global:
   - REGION=us-east-1
