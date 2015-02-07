@@ -1,0 +1,49 @@
+FORMAT: 1A
+
+# Simple Recipe Manager
+The Simple Recipe Manager API is a *recipe storage* service similar what you'd find in your cookbook, at home, but should meet the needs of even the most busy kitchens. It also aims to make aggregating a group of recipes easy, and building *shopping lists* easy.
+
+# Group Recipe
+The base unit of a *recipe*. You'll be consuming pieices of this in client apps.
+
+#Group List
+The base of our *list*. Build shopping lists or anything else.
+
+## Recipe Collection [/recipes]
+### List all public Recipes [GET]
++ Response 200 (application/json)
+
+        [{
+          "id": c0c11bc6-fa00-4239-845e-66192f8f93fe, "recipe_name": "Cookies"
+        }, {
+          "id": 0fce7a68-87b3-4cee-ac34-569beb9e5e9e, "recipe_name": "Super Healthy Chocolate Cake"
+        }]
+
+### Create a Recipe [POST]
++ Request (application/json)
+
+        { "recipe_name": "Shrimp and Grits" }
+
++ Response 201 (application/json)
+
+        { "id": 3, "title": "Buy cheese and bread for breakfast." }
+
+## Recipe [/recipes/{id}]
+A single Recipe object with all its details
+
++ Parameters
+    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
+
+### Retrieve a Note [GET]
++ Response 200 (application/json)
+
+    + Header
+
+            X-My-Header: The Value
+
+    + Body
+
+            { "id": 2, "title": "Pick-up posters from post-office" }
+
+### Remove a Note [DELETE]
++ Response 204
