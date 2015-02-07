@@ -1,15 +1,17 @@
 language: java
 deploy:
 - provider: s3
-  access_key_id: $ACCESS_KEY_ID
-  secret_access_key: $SECRET_KEY
+  access_key_id: "$ACCESS_KEY_ID"
+  secret_access_key: "$SECRET_KEY"
   bucket: $BUCKET_NAME
   skip_cleanup: true
   upload-dir: $FOLDER
+  on:
+    all_branches: true
 env:
   global:
   - REGION=us-east-1
-  - ELB_ENV_ID=e-wpz7sapjhf
+  - ELB_ENV_ID=$(cat envId)
   - APPLICATION_NAME="Simple Recipe Manager"
   - BUCKET_NAME=travis-build-artifacts
   - FOLDER=travis-srm-api
@@ -22,5 +24,8 @@ after_deploy:
 - export AWS_SECRET_ACCESS_KEY=$SECRET_KEY
 - export AWS_DEFAULT_REGION=$REGION
 - export VERSION=$(git rev-parse --short HEAD)
-- aws elasticbeanstalk create-application-version --application-name "$APPLICATION_NAME" --version-label $VERSION --source-bundle S3Bucket=$BUCKET_NAME,S3Key=$FILE_KEY
-- aws elasticbeanstalk update-environment --environment-id $ELB_ENV_ID --version-label $VERSION
+- git fetch --all
+- export BRANCH=$TRAVIS_BRANCH
+- export VERSION_LABEL="$BRANCH-$VERSION"
+- aws elasticbeanstalk create-application-version --application-name "$APPLICATION_NAME" --version-label "$VERSION_LABEL" --source-bundle S3Bucket=$BUCKET_NAME,S3Key=$FILE_KEY
+- aws elasticbeanstalk update-environment --environment-id $ELB_ENV_ID --version-label $VERSION_LABEL
