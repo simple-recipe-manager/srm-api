@@ -6,44 +6,81 @@ The Simple Recipe Manager API is a *recipe storage* service similar what you'd f
 # Group Recipe
 The base unit of a *recipe*. You'll be consuming pieices of this in client apps.
 
-#Group List
-The base of our *list*. Build shopping lists or anything else.
-
-## Recipe Collection [/recipes]
-### List all public Recipes [GET]
-+ Response 200 (application/json)
-
-        [{
-          "id": c0c11bc6-fa00-4239-845e-66192f8f93fe, "recipe_name": "Cookies"
-        }, {
-          "id": 0fce7a68-87b3-4cee-ac34-569beb9e5e9e, "recipe_name": "Super Healthy Chocolate Cake"
-        }]
-
-### Create a Recipe [POST]
-+ Request (application/json)
-
-        { "recipe_name": "Shrimp and Grits" }
-
-+ Response 201 (application/json)
-
-        { "id": 3, "title": "Buy cheese and bread for breakfast." }
-
 ## Recipe [/recipes/{id}]
-A single Recipe object with all its details
+A single recipe object.
+
+The Recipe object has the following attributes:
+
+- oven_fan
+- oven_temp
+- amount
+- unit
+- oven_time
+- ingredients
+    - ingredient
+        - amounts
+            - amount
+            - unit
+        - processing
+        - notes
+        - substituions
+        - usda_num
+- source_book
+    - authors
+    - title
+    - isbn
+    - notes
+- source_authors
+- steps
+    - step
+        - haccp
+            - control_point
+            - critical_control_point
+    - notes
+- yeilds
+    - yield
+        - amount
+        - unit
+- recipe_uuid
+- recipe_name
+- X-prep_time
+- X-added_at
+- X-description
+- X-default_image_url
+
+The *recipe_uuid* and *added_at* property are assigned by the API when saved.
 
 + Parameters
-    + id (required, number, `1`) ... Numeric `id` of the Note to perform action with. Has example value.
+    + id (String) ... ID fo the recipe to get
 
-### Retrieve a Note [GET]
-+ Response 200 (application/json)
++ Model (application/json)
 
-    + Header
-
-            X-My-Header: The Value
+    JSON representation of a recipe resource.    
 
     + Body
+    
+            {
+                "recipe_uuid" : "c0c11bc6-fa00-4239-845e-66192f8f93fe",
+                "added_at" : 1234568203,
+                "prep_time" : 0,
+                "cooking_time" : 5,
+                "recipe_name" : "Cookies"
+                
+            }
 
-            { "id": 2, "title": "Pick-up posters from post-office" }
+### Retrieve a single Recipe [GET]
++ Response 200
 
-### Remove a Note [DELETE]
-+ Response 204
+    [Recipe][]
+    
+### Edit a recipe [PUT]
++ Request (application/json)
+
+        {
+            "recipe_uuid" : "c0c11bc6-fa00-4239-845e-66192f8f93fe",
+            "recipe_name" : "Chocolate chip cookies"
+        }
+    
++ Response 200
+
+    [Recipe][]
