@@ -1,0 +1,67 @@
+# this is an example of the Uber API
+# as a demonstration of an API spec in YAML
+swagger: '2.0'
+info:
+  title: Whiskly API
+  description: A better way to cook.
+  version: "1.0.0"
+# the domain of the service
+host: api.whisk.ly
+# array of all schemes that your API supports
+schemes:
+  - https
+# will be prefixed to all paths
+basePath: /v1
+produces:
+  - application/json
+paths:
+  /recipes/{id}:
+    get:
+      summary: Recipes
+      description: |
+        Returns a single recipe for a given id.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the recpe to fetch
+          required: true
+          type: string
+          format: uuid
+      tags:
+        - Recipes
+      responses:
+        200:
+          description: A recipe
+          schema:
+            $ref: '#/definitions/Recipe'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+definitions:
+  Recipe:
+    properties:
+      recipe_uuid:
+        type: string
+        description: Unique identifier representing a specific recipe.
+      recipe_name:
+        type: string
+        description: Description of product.
+      X-prep_time:
+        type: integer
+        description: The time in minutes it takes to prep for a recipe.
+      X-cooking_time:
+        type: integer
+        description: The time in minutes for this recipe to cook.
+      X-added_at:
+        type: integer
+        description: The timestamp in milliseconds when this was created relative to the unix epoch.
+  Error:
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
+      fields:
+        type: string
