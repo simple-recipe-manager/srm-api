@@ -5,4 +5,4 @@ ADD https://s3.amazonaws.com/travis-build-artifacts/travis-srm-api/target/JAR_NA
 
 CMD ["java", "-jar", "/app/server.jar", "server" ]
 
-EXPOSE 8080 8081
+EXPOSE 8080

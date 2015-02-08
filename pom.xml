@@ -32,7 +32,8 @@
 						<configuration>
 							<tasks>
 								<copy file="Dockerfile.template" toFile="Dockerfile.rewrite" />
-								<replace file="Dockerfile.rewrite" token="JAR_NAME" value="${project.build.finalName}" />
+								<replace file="Dockerfile.rewrite" token="JAR_NAME"
+									value="${project.build.finalName}" />
 								<move file="Dockerfile.rewrite" tofile="Dockerfile" />
 							</tasks>
 						</configuration>
@@ -47,18 +48,18 @@
 				<groupId>pl.project13.maven</groupId>
 				<version>2.1.12</version>
 				<executions>
-                       <execution>
-                           <goals>
-                               <goal>revision</goal>
-                           </goals>
-                       </execution>
-                   </executions>
-                   <configuration>
-                       <prefix>git</prefix> <!-- that's the default value -->
-                       <dateFormat>dd.MM.yyyy '@' HH:mm:ss z</dateFormat> <!-- that's the default value -->
-                       <verbose>true</verbose> <!-- false is default for this -->
-                       <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory> <!-- required, you have to specify this path -->
-                   </configuration>
+					<execution>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<prefix>git</prefix> <!-- that's the default value -->
+					<dateFormat>dd.MM.yyyy '@' HH:mm:ss z</dateFormat> <!-- that's the default value -->
+					<verbose>true</verbose> <!-- false is default for this -->
+					<dotGitDirectory>${project.basedir}/../.git</dotGitDirectory> <!-- required, you have to specify this path -->
+				</configuration>
 			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -177,6 +178,11 @@
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
 			<version>1.9.13</version>
+		</dependency>
+		<dependency>
+			<groupId>io.dropwizard</groupId>
+			<artifactId>dropwizard-assets</artifactId>
+			<version>${dropwizard.version}</version>
 		</dependency>
 	</dependencies>
 	<packaging>jar</packaging>
