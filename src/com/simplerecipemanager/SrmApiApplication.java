@@ -19,7 +19,7 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 
 	@Override
 	public void initialize(Bootstrap<SrmApiConfiguration> arg0) {
-		arg0.addBundle(new AssetsBundle("/assets", "/"));
+		arg0.addBundle(new AssetsBundle("/assets/yml", "/yml", null, "yml"));
 	}
 
 	@Override
