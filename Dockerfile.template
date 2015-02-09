@@ -2,7 +2,7 @@ FROM dockerfile/java
 
 RUN mkdir /app
 ADD https://s3.amazonaws.com/travis-build-artifacts/travis-srm-api/target/JAR_NAME.jar /app/server.jar
-
-CMD ["java", "-jar", "/app/server.jar", "server", "server.yaml" ]
+ADD https://s3.amazonaws.com/travis-build-artifacts/travis-srm-api/YAML_NAME /app/server.yaml
+CMD ["java", "-jar", "/app/server.jar", "server", "/app/server.yaml" ]
 
 EXPOSE 8080
