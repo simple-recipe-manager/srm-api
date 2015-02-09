@@ -37,7 +37,7 @@
 								<move file="Dockerfile.rewrite" tofile="Dockerfile" />
 
 								<copy file="server.yaml" toFile="${project.build.finalName}.yaml" />
-								<replace file="Dockerfile.rewrite" token="YAML_NAME"
+								<replace file="Dockerfile" token="YAML_NAME"
 									value="${project.build.finalName}.yaml" />
 							</tasks>
 						</configuration>
@@ -122,6 +122,18 @@
 				</executions>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>./assets</directory>
+			</resource>
+			<resource>
+				<directory>./</directory>
+				<includes>
+					<include>*.yaml</include>
+					<include>*.yml</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 	<properties>
 		<dropwizard.version>0.7.0</dropwizard.version>
