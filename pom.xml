@@ -35,6 +35,10 @@
 								<replace file="Dockerfile.rewrite" token="JAR_NAME"
 									value="${project.build.finalName}" />
 								<move file="Dockerfile.rewrite" tofile="Dockerfile" />
+
+								<copy file="server.yaml" toFile="${project.build.finalName}.yaml" />
+								<replace file="Dockerfile.rewrite" token="YAML_NAME"
+									value="${project.build.finalName}.yaml" />
 							</tasks>
 						</configuration>
 						<goals>
