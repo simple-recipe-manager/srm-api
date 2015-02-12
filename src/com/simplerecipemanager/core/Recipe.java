@@ -44,7 +44,15 @@ public class Recipe {
 	private long prepTime;
 	private long cookingTime;
 	private long addedAt;
-	private boolean private;
+	private boolean isPrivate;
+
+	public boolean isPrivate() {
+		return isPrivate;
+	}
+
+	public void setPrivate(boolean isPrivate) {
+		this.isPrivate = isPrivate;
+	}
 
 	public Recipe() {
 		this.allIngredients = new HashSet<>();
