@@ -44,6 +44,7 @@ public class Recipe {
 	private long prepTime;
 	private long cookingTime;
 	private long addedAt;
+	private boolean private;
 
 	public Recipe() {
 		this.allIngredients = new HashSet<>();

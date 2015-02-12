@@ -109,15 +109,17 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/IngredientAndAmount'
-      X-prep_time:
+      prep_time:
         type: integer
         description: The time in minutes it takes to prep for a recipe.
-      X-cooking_time:
+      cooking_time:
         type: integer
         description: The time in minutes for this recipe to cook.
-      X-added_at:
+      added_at:
         type: integer
         description: The timestamp in milliseconds when this was created relative to the unix epoch.
+      private:
+        type: boolean
   Error:
     properties:
       code:
