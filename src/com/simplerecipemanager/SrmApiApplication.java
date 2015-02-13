@@ -1,10 +1,10 @@
 package com.simplerecipemanager;
 
 import io.dropwizard.Application;
-import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import com.bazaarvoice.dropwizard.assets.ConfiguredAssetsBundle;
 import com.simplerecipemanager.configuration.SrmApiConfiguration;
 import com.simplerecipemanager.health.ConnectionHealthCheck;
 import com.simplerecipemanager.resources.HealthCheckResource;
@@ -19,13 +19,14 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 
 	@Override
 	public void initialize(Bootstrap<SrmApiConfiguration> arg0) {
-		arg0.addBundle(new AssetsBundle("/assets/yml", "/yml", null, "yml"));
+		arg0.addBundle(new ConfiguredAssetsBundle("/assets/", "/"));
 	}
 
 	@Override
 	public void run(SrmApiConfiguration configuration, Environment environment)
 			throws Exception {
 
+		environment.jersey().setUrlPattern("/v1");
 		final RecipesResource reipceResource = new RecipesResource(
 				configuration.getMapperFactory().build(environment));
 		environment.jersey().register(reipceResource);

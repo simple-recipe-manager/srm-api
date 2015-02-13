@@ -200,6 +200,11 @@
 			<artifactId>dropwizard-assets</artifactId>
 			<version>${dropwizard.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.bazaarvoice.dropwizard</groupId>
+			<artifactId>dropwizard-configurable-assets-bundle</artifactId>
+			<version>0.2.2</version>
+		</dependency>
 	</dependencies>
 	<packaging>jar</packaging>
 </project>

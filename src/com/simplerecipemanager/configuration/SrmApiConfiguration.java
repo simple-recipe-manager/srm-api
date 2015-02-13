@@ -2,20 +2,35 @@ package com.simplerecipemanager.configuration;
 
 import io.dropwizard.Configuration;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.AWSCredentialsProviderChain;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.InstanceProfileCredentialsProvider;
+import com.bazaarvoice.dropwizard.assets.AssetsBundleConfiguration;
+import com.bazaarvoice.dropwizard.assets.AssetsConfiguration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SrmApiConfiguration extends Configuration {
+public class SrmApiConfiguration extends Configuration implements
+		AssetsBundleConfiguration {
 
 	private DynamoDBMapperFactory mapperFactory;
 	private CloudSearchFactory cloudSearchFactory;
 	private String accessKey;
 	private String secretKey;
 	private String cloudSearchNameEndpoint;
+	@Valid
+	@NotNull
+	@JsonProperty
+	private final AssetsConfiguration assets = new AssetsConfiguration();
+
+	@Override
+	public AssetsConfiguration getAssetsConfiguration() {
+		return assets;
+	}
 
 	public DynamoDBMapperFactory getMapperFactory() {
 		synchronized (this) {
