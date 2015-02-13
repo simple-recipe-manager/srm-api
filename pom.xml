@@ -124,7 +124,7 @@
 		</plugins>
 		<resources>
 			<resource>
-				<directory>./assets</directory>
+				<directory>./src/main</directory>
 			</resource>
 			<resource>
 				<directory>./</directory>
