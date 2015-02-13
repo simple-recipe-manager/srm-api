@@ -26,7 +26,7 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 	public void run(SrmApiConfiguration configuration, Environment environment)
 			throws Exception {
 
-		environment.jersey().setUrlPattern("/v1");
+		environment.jersey().setUrlPattern("/v1/*");
 		final RecipesResource reipceResource = new RecipesResource(
 				configuration.getMapperFactory().build(environment));
 		environment.jersey().register(reipceResource);
