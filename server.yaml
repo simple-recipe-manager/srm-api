@@ -1,1 +1,6 @@
 cloudSearchNameEndpoint: search-srm-names-iq5g3i4fnog7eyfjtpo52jtxga.us-east-1.cloudsearch.amazonaws.com
+assets:
+  overrides:
+     /: assets/
+  mimeTypes:
+     json: application/json

@@ -1,4 +1,4 @@
-FROM dockerfile/java
+FROM dockerfile/java:oracle-java8
 
 RUN mkdir /app
 ADD https://s3.amazonaws.com/travis-build-artifacts/travis-srm-api/target/JAR_NAME.jar /app/server.jar
