@@ -69,8 +69,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.1</version>
 				<configuration>
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -121,10 +122,11 @@
 					</execution>
 				</executions>
 			</plugin>
+
 		</plugins>
 		<resources>
 			<resource>
-				<directory>./src/main</directory>
+				<directory>./src/main/resources/</directory>
 			</resource>
 			<resource>
 				<directory>./</directory>
@@ -194,11 +196,6 @@
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
 			<version>1.9.13</version>
-		</dependency>
-		<dependency>
-			<groupId>io.dropwizard</groupId>
-			<artifactId>dropwizard-assets</artifactId>
-			<version>${dropwizard.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bazaarvoice.dropwizard</groupId>
