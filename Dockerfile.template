@@ -3,6 +3,7 @@ FROM dockerfile/java:oracle-java8
 RUN mkdir /app
 ADD https://s3.amazonaws.com/travis-build-artifacts/travis-srm-api/target/JAR_NAME.jar /app/server.jar
 ADD https://s3.amazonaws.com/travis-build-artifacts/travis-srm-api/YAML_NAME /app/server.yaml
+ADD https://raw.github.com/h5bp/server-configs-nginx/master/h5bp/directive-only/cross-domain-insecure.conf /etc/nginx/h5bp/directive-only/cross-domain-insecure.conf
 CMD ["java", "-jar", "/app/server.jar", "server", "/app/server.yaml" ]
 
 EXPOSE 8080
