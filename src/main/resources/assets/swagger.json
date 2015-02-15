@@ -101,9 +101,23 @@
             "post": {
                 "summary": "New Recipe",
                 "description": "Adds a new recipe to the database, adding a unique id on the way in.",
-                "responses": null,
-                "parameters": "parameter",
-                "tags": []
+                "responses": {
+                    "200": {
+                        "description": "Successfully added a new recipe.",
+                        "schema": {
+                            "$ref": "#/definitions/Recipe"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": [
+                    "Recipes"
+                ]
             }
         }
     },
