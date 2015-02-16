@@ -1,5 +1,7 @@
 package ly.whisk.storage.helper;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -27,7 +29,7 @@ public class RecipeAdapter {
 	}
 
 	public static ly.whisk.storage.Recipe toStorageRecipe(
-			ly.whisk.model.Recipe inRecipe) {
+			ly.whisk.model.Recipe inRecipe) throws MalformedURLException {
 		ly.whisk.storage.Recipe storage = new Recipe();
 		storage.setAddedAt(inRecipe.getAdded_at());
 		// TODO: Fix this
@@ -44,7 +46,7 @@ public class RecipeAdapter {
 		storage.setSource_book(toStorageSourceBook(inRecipe.getSource_book()));
 		storage.setSteps(toStorageSteps(inRecipe.getSteps()));
 		storage.setYields(toStorageYields(inRecipe.getYields()));
-
+		storage.setDefaultImageURL(new URL(inRecipe.getDefault_image_url()));
 		return storage;
 	}
 
@@ -69,6 +71,7 @@ public class RecipeAdapter {
 		// tr.setSource_url(inRecipe.getSource_url());
 		tr.setSteps(toAPISteps(inRecipe.getSteps()));
 		tr.setYields(toAPIYields(inRecipe.getYields()));
+		tr.setDefault_image_url(inRecipe.getDefaultImageURL().toString());
 
 		return tr;
 	}
