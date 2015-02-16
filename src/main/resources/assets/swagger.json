@@ -22,7 +22,7 @@
         "/recipes/{id}": {
             "get": {
                 "summary": "Single Recipe",
-                "description": "Returns a single recipe for a given id.\n",
+                "description": "Returns a single recipe for a given id.",
                 "parameters": [
                     {
                         "name": "id",
@@ -58,16 +58,18 @@
                 "description": "Returns a listing of all recipes, paged.",
                 "parameters": [
                     {
-                        "name": "page",
+                        "name": "pageNum",
                         "in": "query",
                         "description": "The page number to give back.",
-                        "type": "integer"
+                        "type": "integer",
+                        "format": "int32"
                     },
                     {
-                        "name": "size",
+                        "name": "pageSize",
                         "in": "query",
                         "description": "The size of each page to give back.",
-                        "type": "integer"
+                        "type": "integer",
+                        "format": "int32"
                     },
                     {
                         "name": "search",
@@ -101,6 +103,16 @@
             "post": {
                 "summary": "New Recipe",
                 "description": "Adds a new recipe to the database, adding a unique id on the way in.",
+                "parameters": [
+                    {
+                        "name": "Recipe",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Recipe"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successfully added a new recipe.",
@@ -137,7 +149,8 @@
                     "$ref": "#/definitions/OvenFan"
                 },
                 "oven_time": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "oven_temp": {
                     "$ref": "#/definitions/OvenTemp"
@@ -161,8 +174,7 @@
                     }
                 },
                 "source_url": {
-                    "type": "string",
-                    "format": "url"
+                    "type": "string"
                 },
                 "steps": {
                     "type": "array",
@@ -178,17 +190,20 @@
                 },
                 "prep_time": {
                     "type": "integer",
+                    "format": "int64",
                     "description": "The time in minutes it takes to prep for a recipe."
                 },
                 "cooking_time": {
                     "type": "integer",
+                    "format": "int64",
                     "description": "The time in minutes for this recipe to cook."
                 },
                 "added_at": {
                     "type": "integer",
+                    "format": "int64",
                     "description": "The timestamp in milliseconds when this was created relative to the unix epoch."
                 },
-                "private": {
+                "is_private": {
                     "type": "boolean"
                 }
             }
@@ -299,9 +314,9 @@
         },
         "OvenTemp": {
             "properties": {
-                "amount": {
-                    "type": "number",
-                    "format": "int"
+                "value": {
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "unit": {
                     "$ref": "#/definitions/TemperatureUnit"
@@ -358,8 +373,7 @@
                     "type": "string"
                 },
                 "ISBN": {
-                    "type": "string",
-                    "format": "isbn"
+                    "type": "string"
                 },
                 "notes": {
                     "$ref": "#/definitions/Note"
@@ -382,7 +396,8 @@
                     "$ref": "#/definitions/Note"
                 },
                 "order": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int32"
                 }
             }
         },
@@ -393,7 +408,8 @@
                     "format": "uuid"
                 },
                 "serves": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "int64"
                 },
                 "unit": {
                     "$ref": "#/definitions/UnitTag"

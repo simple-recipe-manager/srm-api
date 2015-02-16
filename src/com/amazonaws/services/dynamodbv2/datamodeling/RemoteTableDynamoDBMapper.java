@@ -6,10 +6,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import ly.whisk.db.RemoteTable;
+import ly.whisk.db.RemotedTable;
+
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.simplerecipemanager.db.RemoteTable;
-import com.simplerecipemanager.db.RemotedTable;
 
 public class RemoteTableDynamoDBMapper extends DynamoDBMapper {
 
