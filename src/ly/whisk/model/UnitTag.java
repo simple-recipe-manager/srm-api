@@ -11,6 +11,10 @@ public class UnitTag {
    * required: false
    **/
   private String tag = null;
+  /**
+   * required: false
+   **/
+  private String multipleTag = null;
   
   public String getId() {
     return id;
@@ -26,6 +30,12 @@ public class UnitTag {
     this.tag = tag;
   }
 
+  public String getMultipleTag() {
+    return multipleTag;
+  }
+  public void setMultipleTag(String multipleTag) {
+    this.multipleTag = multipleTag;
+  }
   
 
   @Override
@@ -34,6 +44,7 @@ public class UnitTag {
     sb.append("class UnitTag {\n");
     sb.append("  id: ").append(id).append("\n");
     sb.append("  tag: ").append(tag).append("\n");
+    sb.append("  multipleTag: ").append(multipleTag).append("\n");
     sb.append("}\n");
     return sb.toString();
   }

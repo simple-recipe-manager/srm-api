@@ -90,6 +90,14 @@ public class Recipe {
   //public enum added_atEnum {  }; 
   
   /**
+<<<<<<< HEAD
+=======
+   * The header image for a recipe.
+   * required: false
+   **/
+  private String default_image_url = null;
+  /**
+>>>>>>> master
    * required: false
    **/
   private Boolean is_private = null;
@@ -199,6 +207,13 @@ public class Recipe {
     this.added_at = added_at;
   }
 
+  public String getDefault_image_url() {
+    return default_image_url;
+  }
+  public void setDefault_image_url(String default_image_url) {
+    this.default_image_url = default_image_url;
+  }
+
   public Boolean getIs_private() {
     return is_private;
   }
@@ -227,6 +242,7 @@ public class Recipe {
     sb.append("  prep_time: ").append(prep_time).append("\n");
     sb.append("  cooking_time: ").append(cooking_time).append("\n");
     sb.append("  added_at: ").append(added_at).append("\n");
+    sb.append("  default_image_url: ").append(default_image_url).append("\n");
     sb.append("  is_private: ").append(is_private).append("\n");
     sb.append("}\n");
     return sb.toString();

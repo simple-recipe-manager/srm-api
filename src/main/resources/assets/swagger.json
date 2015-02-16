@@ -203,6 +203,10 @@
                     "format": "int64",
                     "description": "The timestamp in milliseconds when this was created relative to the unix epoch."
                 },
+                "default_image_url": {
+                    "type": "string",
+                    "description": "The header image for a recipe."
+                },
                 "is_private": {
                     "type": "boolean"
                 }
@@ -290,6 +294,9 @@
                     "format": "uuid"
                 },
                 "tag": {
+                    "type": "string"
+                },
+                "multipleTag": {
                     "type": "string"
                 }
             }
