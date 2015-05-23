@@ -1,7 +1,8 @@
 accessKey: abcd
 secretKey: efgh
 cloudSearchNameEndpoint: search-srm-names-iq5g3i4fnog7eyfjtpo52jtxga.us-east-1.cloudsearch.amazonaws.com
-
+server:
+  rootPath: '/v1/*'
 assets:
   overrides:
      /: src/main/resources/assets/
