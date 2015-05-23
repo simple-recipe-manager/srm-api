@@ -16,5 +16,6 @@ hs_err_pid*
 target/
 .DS_Store
 
+
 local.yaml
 /bin/
