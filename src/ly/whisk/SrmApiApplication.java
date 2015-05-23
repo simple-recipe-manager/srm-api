@@ -1,5 +1,9 @@
 package ly.whisk;
 
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
+
+import ly.whisk.api.EchoApi;
 import ly.whisk.api.RecipesApi;
 import ly.whisk.configuration.SrmApiConfiguration;
 import ly.whisk.health.ConnectionHealthCheck;
@@ -9,6 +13,8 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
+import com.amazon.speech.speechlet.Speechlet;
+import com.amazon.speech.speechlet.servlet.SpeechletServlet;
 import com.bazaarvoice.dropwizard.assets.ConfiguredAssetsBundle;
 
 public class SrmApiApplication extends Application<SrmApiConfiguration> {
@@ -30,6 +36,15 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 				.getMapperFactory().build(environment));
 		environment.jersey().register(reipceResource);
 
+		environment.getApplicationContext()
+				.addServlet(
+						new ServletHolder(createServlet(new EchoApi(
+								configuration.getMapperFactory().build(
+										environment), configuration
+										.getCloudSearchFactory()
+										.buildNameSearch(environment)))),
+						"/echo");
+
 		final SearchResource searchResource = new SearchResource(configuration
 				.getCloudSearchFactory().buildNameSearch(environment));
 		environment.jersey().register(searchResource);
@@ -42,5 +57,11 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 				environment.healthChecks());
 		environment.jersey().register(hcR);
 
+	}
+
+	private SpeechletServlet createServlet(final Speechlet speechlet) {
+		SpeechletServlet servlet = new SpeechletServlet();
+		servlet.setSpeechlet(speechlet);
+		return servlet;
 	}
 }

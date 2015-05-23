@@ -9,6 +9,25 @@
 		<finalName>SRM-${git.commit.id}</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
+                       <plugin>
+    <groupId>com.googlecode.addjars-maven-plugin</groupId>
+    <artifactId>addjars-maven-plugin</artifactId>
+    <version>1.0.5</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>add-jars</goal>
+            </goals>
+            <configuration>
+                <resources>
+                    <resource>
+                        <directory>${project.basedir}/lib</directory>
+                    </resource>
+                </resources>
+            </configuration>
+        </execution>
+    </executions>
+</plugin> 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -31,12 +50,12 @@
 						<phase>package</phase>
 						<configuration>
 							<tasks>
-								<copy file="Dockerfile.template" toFile="Dockerfile.rewrite" />
+								<copy file="${project.basedir}/Dockerfile.template" toFile="Dockerfile.rewrite" />
 								<replace file="Dockerfile.rewrite" token="JAR_NAME"
 									value="${project.build.finalName}" />
 								<move file="Dockerfile.rewrite" tofile="Dockerfile" />
 
-								<copy file="server.yaml" toFile="${project.build.finalName}.yaml" />
+								<copy file="${project.basedir}/server.yaml" toFile="${project.build.finalName}.yaml" />
 								<replace file="Dockerfile" token="YAML_NAME"
 									value="${project.build.finalName}.yaml" />
 							</tasks>
@@ -138,7 +157,7 @@
 		</resources>
 	</build>
 	<properties>
-		<dropwizard.version>0.7.0</dropwizard.version>
+		<dropwizard.version>0.8.1</dropwizard.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -184,7 +203,7 @@
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.4.178</version>
+			<version>1.4.187</version>
 		</dependency>
 		<dependency>
 			<groupId>io.dropwizard</groupId>
@@ -195,7 +214,7 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
-			<version>1.9.13</version>
+			<version>1.9.37</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bazaarvoice.dropwizard</groupId>
@@ -205,9 +224,25 @@
 		<dependency>
 			<groupId>com.wordnik</groupId>
 			<artifactId>swagger-jaxrs</artifactId>
-			<version>1.5.0-M1</version>
+			<version>1.5.2-M2</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+		</dependency>
+                <dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.5.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>18.0</version>
+		</dependency>
+
 	</dependencies>
 	<packaging>jar</packaging>
 </project>
