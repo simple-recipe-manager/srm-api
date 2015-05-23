@@ -50,13 +50,13 @@
 						<phase>package</phase>
 						<configuration>
 							<tasks>
-								<copy file="${project.basedir}/Dockerfile.template" toFile="${project.build.directory}/Dockerfile.rewrite" />
-								<replace file="${project.build.directory}/Dockerfile.rewrite" token="JAR_NAME"
+								<copy file="${project.basedir}/Dockerfile.template" toFile="${project.basedir}/Dockerfile.rewrite" />
+								<replace file="${project.basedir}/Dockerfile.rewrite" token="JAR_NAME"
 									value="${project.build.finalName}" />
-								<move file="${project.build.directory}/Dockerfile.rewrite" tofile="${project.build.directory}/Dockerfile" />
+								<move file="${project.basedir}/Dockerfile.rewrite" tofile="${project.basedir}/Dockerfile" />
 
-								<copy file="${project.basedir}/server.yaml" toFile="${project.build.directory}/${project.build.finalName}.yaml" />
-								<replace file="${project.build.directory}/Dockerfile" token="YAML_NAME"
+								<copy file="${project.basedir}/server.yaml" toFile="${project.basedir}/${project.build.finalName}.yaml" />
+								<replace file="${project.basedir}/Dockerfile" token="YAML_NAME"
 									value="${project.build.finalName}.yaml" />
 							</tasks>
 						</configuration>
