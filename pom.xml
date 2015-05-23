@@ -9,25 +9,25 @@
 		<finalName>SRM-${git.commit.id}</finalName>
 		<sourceDirectory>src</sourceDirectory>
 		<plugins>
-                       <plugin>
-    <groupId>com.googlecode.addjars-maven-plugin</groupId>
-    <artifactId>addjars-maven-plugin</artifactId>
-    <version>1.0.5</version>
-    <executions>
-        <execution>
-            <goals>
-                <goal>add-jars</goal>
-            </goals>
-            <configuration>
-                <resources>
-                    <resource>
-                        <directory>${project.basedir}/lib</directory>
-                    </resource>
-                </resources>
-            </configuration>
-        </execution>
-    </executions>
-</plugin> 
+			<plugin>
+				<groupId>com.googlecode.addjars-maven-plugin</groupId>
+				<artifactId>addjars-maven-plugin</artifactId>
+				<version>1.0.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>add-jars</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/lib</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -51,11 +51,12 @@
 						<configuration>
 							<tasks>
 								<copy file="${project.basedir}/Dockerfile.template" toFile="${project.basedir}/Dockerfile.rewrite" />
-								<replace file="${project.basedir}/Dockerfile.rewrite" token="JAR_NAME"
-									value="${project.build.finalName}" />
+								<replace file="${project.basedir}/Dockerfile.rewrite"
+									token="JAR_NAME" value="${project.build.finalName}" />
 								<move file="${project.basedir}/Dockerfile.rewrite" tofile="${project.basedir}/Dockerfile" />
 
-								<copy file="${project.basedir}/server.yaml" toFile="${project.basedir}/${project.build.finalName}.yaml" />
+								<copy file="${project.basedir}/server.yaml"
+									toFile="${project.basedir}/${project.build.finalName}.yaml" />
 								<replace file="${project.basedir}/Dockerfile" token="YAML_NAME"
 									value="${project.build.finalName}.yaml" />
 							</tasks>
@@ -232,7 +233,7 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
-                <dependency>
+		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>2.5.3</version>
@@ -241,6 +242,11 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>18.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-guava</artifactId>
+			<version>2.5.3</version>
 		</dependency>
 
 	</dependencies>
