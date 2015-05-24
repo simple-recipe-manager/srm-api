@@ -6,4 +6,5 @@ ADD https://s3.amazonaws.com/travis-build-artifacts/travis-srm-api/YAML_NAME /ap
 ADD https://raw.github.com/h5bp/server-configs-nginx/master/h5bp/directive-only/cross-domain-insecure.conf /etc/nginx/h5bp/directive-only/cross-domain-insecure.conf
 CMD ["java", "-jar", "/app/server.jar", "server", "/app/server.yaml" ]
 
+
 EXPOSE 8080

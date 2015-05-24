@@ -1,4 +1,4 @@
-package ly.whisk.api;
+package ly.whisk.resources;
 
 import ly.whisk.storage.Recipe;
 import ly.whisk.storage.helper.RecipeStorageHelper;
@@ -109,7 +109,7 @@ public class EchoApi implements Speechlet {
 	}
 
 	private SpeechletResponse getWelcomeResponse() {
-		String speechOutput = "Hello, welcome to Whiskly. You can say things like \"Let's make cake\" or \"Find me a reipce for fried chicken\"";
+		String speechOutput = "Hello, welcome to Whiskly. You can say things like \"Let's make cake\" or \"Find me a recipe for fried chicken\"";
 		return buildSpeechletResponse("Welcome", speechOutput, false);
 	}
 
@@ -129,8 +129,8 @@ public class EchoApi implements Speechlet {
 			final String output, final boolean shouldEndSession) {
 		// Create the Simple card content.
 		SimpleCard card = new SimpleCard();
-		card.setTitle(String.format("SessionSpeechlet - %s", title));
-		card.setContent(String.format("SessionSpeechlet - %s", output));
+		card.setTitle(String.format("%s", title));
+		card.setContent(String.format("%s", output));
 
 		// Create the plain text output.
 		PlainTextOutputSpeech speech = new PlainTextOutputSpeech();

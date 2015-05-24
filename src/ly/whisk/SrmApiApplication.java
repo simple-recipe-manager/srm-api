@@ -3,11 +3,11 @@ package ly.whisk;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 
-import ly.whisk.api.EchoApi;
-import ly.whisk.api.RecipesApi;
 import ly.whisk.configuration.SrmApiConfiguration;
 import ly.whisk.health.ConnectionHealthCheck;
+import ly.whisk.resources.EchoApi;
 import ly.whisk.resources.HealthCheckResource;
+import ly.whisk.resources.RecipesApi;
 import ly.whisk.resources.SearchResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;

@@ -1,4 +1,7 @@
-package ly.whisk.api;
+package ly.whisk.resources;
+
+import java.net.MalformedURLException;
+import java.util.UUID;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -9,6 +12,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import ly.whisk.api.ApiResponseMessage;
+import ly.whisk.api.NotFoundException;
 import ly.whisk.model.Recipe;
 import ly.whisk.storage.helper.RecipeAdapter;
 import ly.whisk.storage.helper.RecipeStorageHelper;
@@ -32,7 +37,6 @@ public class RecipesApi {
 	}
 
 	@GET
-	@Path("")
 	@ApiOperation(value = "Search all recipes", notes = "Returns a listing of all recipes, paged.", response = Recipe.class, responseContainer = "List")
 	@ApiResponses(value = { @ApiResponse(code = 0, message = "Unexpected error") })
 	public Response recipesGet(
@@ -48,16 +52,24 @@ public class RecipesApi {
 	}
 
 	@POST
-	@Path("")
 	@ApiOperation(value = "New Recipe", notes = "Adds a new recipe to the database, adding a unique id on the way in.", response = Recipe.class)
 	@ApiResponses(value = { @ApiResponse(code = 0, message = "Unexpected error") })
-	public Response recipesPost(@ApiParam(value = "") Recipe Recipe)
+	public Response recipesPost(@ApiParam(value = "recipe") Recipe Recipe)
 			throws NotFoundException {
 		// do some magic!
-		return Response
-				.ok()
-				.entity(new ApiResponseMessage(ApiResponseMessage.OK, "magic!"))
-				.build();
+		try {
+			Recipe stored = RecipeAdapter.toAPIRecipe(this.helper
+					.validateAndSaveRecipe(RecipeAdapter
+							.toStorageRecipe(Recipe), UUID.randomUUID()
+							.toString()));
+			return Response.ok().entity(stored).build();
+		} catch (MalformedURLException e) {
+			return Response
+					.status(Status.BAD_REQUEST)
+					.entity(new ApiResponseMessage(ApiResponseMessage.ERROR,
+							"Could not de-serialize the message.")).build();
+		}
+
 	}
 
 	@GET
@@ -72,9 +84,9 @@ public class RecipesApi {
 		if (loaded != null) {
 			return Response.ok().entity(loaded).build();
 		} else {
-			return Response
-					.status(Status.NOT_FOUND)
-					.entity(new NotFoundException(404, "No matching record.")).build();
+			return Response.status(Status.NOT_FOUND)
+					.entity(new NotFoundException(404, "No matching record."))
+					.build();
 		}
 	}
 

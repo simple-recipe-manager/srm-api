@@ -23,6 +23,6 @@ public class RecipeStorageHelper {
 			ly.whisk.storage.Recipe toSave, String idToSave) {
 		toSave.setId(idToSave);
 		this.mapper.save(toSave);
-		return toSave;
+		return this.getRecipeForId(idToSave);
 	}
 }

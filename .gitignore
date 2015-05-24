@@ -19,3 +19,5 @@ target/
 
 local.yaml
 /bin/
+SRM-*.yaml
+Dockerfile
