@@ -1,17 +1,18 @@
 package ly.whisk;
 
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-
-import ly.whisk.configuration.SrmApiConfiguration;
-import ly.whisk.health.ConnectionHealthCheck;
-import ly.whisk.resources.EchoApi;
-import ly.whisk.resources.HealthCheckResource;
-import ly.whisk.resources.RecipesApi;
-import ly.whisk.resources.SearchResource;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
+import ly.whisk.configuration.SrmApiConfiguration;
+import ly.whisk.health.ConnectionHealthCheck;
+import ly.whisk.resources.EchoResource;
+import ly.whisk.resources.HealthCheckResource;
+import ly.whisk.resources.IndexResource;
+import ly.whisk.resources.RecipesResource;
+import ly.whisk.resources.SearchResource;
+
+import org.eclipse.jetty.servlet.ServletHolder;
 
 import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.servlet.SpeechletServlet;
@@ -25,20 +26,21 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 	@Override
 	public void initialize(Bootstrap<SrmApiConfiguration> arg0) {
 		arg0.addBundle(new ConfiguredAssetsBundle("/assets/", "/"));
+		arg0.addBundle(new ViewBundle<SrmApiConfiguration>());
+
 	}
 
 	@Override
 	public void run(SrmApiConfiguration configuration, Environment environment)
 			throws Exception {
 
-		environment.jersey().setUrlPattern("/v1/*");
-		final RecipesApi reipceResource = new RecipesApi(configuration
-				.getMapperFactory().build(environment));
+		final RecipesResource reipceResource = new RecipesResource(
+				configuration.getMapperFactory().build(environment));
 		environment.jersey().register(reipceResource);
 
 		environment.getApplicationContext()
 				.addServlet(
-						new ServletHolder(createServlet(new EchoApi(
+						new ServletHolder(createServlet(new EchoResource(
 								configuration.getMapperFactory().build(
 										environment), configuration
 										.getCloudSearchFactory()
@@ -56,6 +58,9 @@ public class SrmApiApplication extends Application<SrmApiConfiguration> {
 		final HealthCheckResource hcR = new HealthCheckResource(
 				environment.healthChecks());
 		environment.jersey().register(hcR);
+
+		final IndexResource index = new IndexResource();
+		environment.jersey().register(index);
 
 	}
 

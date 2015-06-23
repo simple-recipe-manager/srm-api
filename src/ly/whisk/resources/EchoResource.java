@@ -23,12 +23,12 @@ import com.amazonaws.services.cloudsearchdomain.model.SearchRequest;
 import com.amazonaws.services.cloudsearchdomain.model.SearchResult;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 
-public class EchoApi implements Speechlet {
+public class EchoResource implements Speechlet {
 
 	private RecipeStorageHelper helper;
 	private AmazonCloudSearchDomain search;
 
-	public EchoApi(DynamoDBMapper mapper,
+	public EchoResource(DynamoDBMapper mapper,
 			AmazonCloudSearchDomain amazonCloudSearchDomain) {
 		this.helper = new RecipeStorageHelper(mapper);
 		this.search = amazonCloudSearchDomain;
@@ -104,8 +104,6 @@ public class EchoApi implements Speechlet {
 	@Override
 	public void onSessionStarted(SessionStartedRequest arg0, Session arg1)
 			throws SpeechletException {
-		// TODO Auto-generated method stub
-
 	}
 
 	private SpeechletResponse getWelcomeResponse() {

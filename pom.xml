@@ -39,6 +39,10 @@
 						<configuration>
 							<tasks>
 								<delete file="Dockerfile" failonerror="false" />
+								<delete>
+									<fileset dir="." includes="SRM-*.yaml" />
+									<fileset dir="./target" includes="*.jar" />
+								</delete>
 							</tasks>
 						</configuration>
 						<goals>

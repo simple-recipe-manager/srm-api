@@ -28,11 +28,11 @@ import com.wordnik.swagger.annotations.ApiResponses;
 @Path("/recipes")
 @Api(value = "/recipes", description = "the recipes API")
 @Produces({ "application/json" })
-public class RecipesApi {
+public class RecipesResource {
 
 	private RecipeStorageHelper helper;
 
-	public RecipesApi(DynamoDBMapper mapper) {
+	public RecipesResource(DynamoDBMapper mapper) {
 		this.helper = new RecipeStorageHelper(mapper);
 	}
 

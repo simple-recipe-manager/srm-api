@@ -209,6 +209,9 @@
                 },
                 "is_private": {
                     "type": "boolean"
+                },
+                "description" : {
+                    "type: "string"
                 }
             }
         },
