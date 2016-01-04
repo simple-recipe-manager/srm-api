@@ -305,7 +305,7 @@
             "properties": {
                 "id": {
                     "type": "string",
-                    "foramt": "uuid"
+                    "format": "uuid"
                 },
                 "ingredient": {
                     "$ref": "#/definitions/Ingredient"
