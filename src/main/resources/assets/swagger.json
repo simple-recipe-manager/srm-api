@@ -84,12 +84,9 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Successfuly ran a search and these matched.",
+                        "description": "Successfully ran a search and these matched.",
                         "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/Recipe"
-                            }
+                            "$ref" : "#/definitions/Recipes"
                         }
                     },
                     "default": {
@@ -134,7 +131,18 @@
         }
     },
     "definitions": {
+        "Recipes" : {
+            "properties" : {
+                "recipes" : {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Recipe"
+                    }
+                }
+            }
+        },
         "Recipe": {
+            "type" : "object",
             "properties": {
                 "recipe_uuid": {
                     "type": "string",
@@ -213,6 +221,7 @@
             }
         },
         "Error": {
+            "type" : "object",
             "properties": {
                 "code": {
                     "type": "integer",
@@ -227,6 +236,7 @@
             }
         },
         "Author": {
+            "type" : "object",
             "properties": {
                 "id": {
                     "type": "string",
@@ -238,6 +248,7 @@
             }
         },
         "HACCP": {
+            "type" : "object",
             "properties": {
                 "critical_control_point": {
                     "type": "string"
@@ -248,6 +259,7 @@
             }
         },
         "Note": {
+            "type" : "object",
             "properties": {
                 "id": {
                     "type": "string",
@@ -259,6 +271,7 @@
             }
         },
         "Ingredient": {
+            "type" : "object",
             "properties": {
                 "id": {
                     "type": "string",
@@ -273,7 +286,8 @@
                 "substitutions": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Ingredient"
+                        "type" : "string",
+                        "format" : "uuid"
                     }
                 },
                 "note": {
@@ -288,6 +302,7 @@
             }
         },
         "UnitTag": {
+            "type" : "object",
             "properties": {
                 "id": {
                     "type": "string",
@@ -302,6 +317,7 @@
             }
         },
         "IngredientAndAmount": {
+            "type" : "object",
             "properties": {
                 "id": {
                     "type": "string",
@@ -320,6 +336,7 @@
             }
         },
         "OvenTemp": {
+            "type" : "object",
             "properties": {
                 "value": {
                     "type": "integer",
@@ -331,6 +348,7 @@
             }
         },
         "TemperatureUnit": {
+            "type" : "object",
             "properties": {
                 "value": {
                     "type": "string",
@@ -342,6 +360,7 @@
             }
         },
         "OvenFan": {
+            "type" : "object",
             "properties": {
                 "value": {
                     "type": "string",
@@ -354,6 +373,7 @@
             }
         },
         "ProcessingTag": {
+            "type" : "object",
             "properties": {
                 "id": {
                     "type": "string",
@@ -365,6 +385,7 @@
             }
         },
         "SourceBook": {
+            "type" : "object",
             "properties": {
                 "id": {
                     "type": "string",
@@ -388,6 +409,7 @@
             }
         },
         "Step": {
+            "type" : "object",
             "properties": {
                 "id": {
                     "type": "string",
@@ -409,6 +431,7 @@
             }
         },
         "Yield": {
+            "type" : "object",
             "properties": {
                 "id": {
                     "type": "string",
